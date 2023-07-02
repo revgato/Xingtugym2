@@ -1,0 +1,9 @@
+CREATE DATABASE IF NOT EXISTS `gym` /*!40100 COLLATE 'utf8_general_ci' */;
+
+CREATE USER 'gym'@'localhost' IDENTIFIED BY '123456';
+CREATE USER 'gym'@'%' IDENTIFIED BY '123456';
+
+GRANT ALL ON *.* TO 'gym'@'localhost';
+GRANT ALL ON *.* TO 'gym'@'%';
+
+FLUSH PRIVILEGES;

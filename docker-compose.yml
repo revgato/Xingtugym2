@@ -1,0 +1,60 @@
+version: "3.8"
+services:
+    app:
+        container_name: app-gym
+        build:
+            context: ./docker/laravel
+            dockerfile: Dockerfile
+        working_dir: /var/www/code
+        volumes:
+            - .:/var/www/code
+        networks:
+            - gym-network
+
+    web:
+        container_name: web-gym
+        image: nginx
+        working_dir: /var/www/code
+        user: root
+        volumes:
+            - .:/var/www/code
+            - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+        ports:
+            - 80:80
+        networks:
+            - gym-network
+
+    database:
+        container_name: mysql-gym
+        build: ./docker/mysql/database
+        volumes:
+            - gym-database:/var/lib/mysql
+            - ./docker/mysql/database:/docker-entrypoint-initdb.d
+        environment:
+            MYSQL_DATABASE: gym
+            MYSQL_USER: gym
+            MYSQL_PASSWORD: 123456
+            MYSQL_ROOT_PASSWORD: 123456
+        ports:
+            - 3307:3306
+        networks:
+            - gym-network
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin:latest
+        ports:
+        - "8081:80"
+        environment:
+            PMA_HOSTS: database
+            PMA_PORT: 3307
+            PMA_USER: gym
+            PMA_PASSWORD : 123456
+        networks:
+            - gym-network
+
+networks:
+    gym-network:
+        driver: bridge
+
+volumes:
+    gym-database:
