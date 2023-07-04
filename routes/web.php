@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('/index');
+    return view('/home/index');
 });
 
 Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
@@ -26,3 +26,12 @@ Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, '
 Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// group gym 
+Route::prefix('/gym')->group(function () {
+    Route::get('/create', [App\Http\Controllers\GymController::class, 'create'])->name('gym.create');
+    Route::post('/create', [App\Http\Controllers\GymController::class, 'store'])->name('gym.store');
+    Route::get('/update', [App\Http\Controllers\GymController::class, 'edit'])->name('gym.edit');
+    Route::post('/update', [App\Http\Controllers\GymController::class, 'update'])->name('gym.update');
+});
+

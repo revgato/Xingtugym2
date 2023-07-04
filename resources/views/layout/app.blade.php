@@ -23,13 +23,19 @@
 
   <!-- Jquery -->
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-  
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+
+  <link href='https://fonts.googleapis.com/css?family=Architects Daughter' rel='stylesheet'>
 </head>
+
 <body>
   @include('layout.header')
   @yield('content')
   @include('layout.footer')
 </body>
+
 </html>
