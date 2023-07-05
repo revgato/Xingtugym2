@@ -1,39 +1,17 @@
 @extends('layout.app')
 
 @section('content')
-<div class="container">
-
-</div>
 <div class="swiper-container">
   <div class="swiper-wrapper">
+    @foreach($topGym as $gym)
     <div class="swiper-slide">
-      <img class="card-img" src="https://previews.123rf.com/images/jalephoto/jalephoto2002/jalephoto200200955/140822100-modern-gym-room-fitness-center-with-equipment-and-machines.jpg" alt="nature">
+      <img class="card-img" src="{{ $gym->firstImage }}" alt="topGym">
       <div class="team-content">
-        <h5 style="font-size: 2rem; font-weight: bold; color: blue">Blue Gym</h5>
-        <p class=" mt-2">Võ Thị Sáu, Hai Bà Trưng</p>
+        <h5 style="font-size: 2rem; font-weight: bold; color: white">{{ $gym->name }}</h5>
+        <p class=" mt-2">{{ $gym->address }}</p>
       </div>
     </div>
-    <div class="swiper-slide">
-      <img class="card-img" src="https://previews.123rf.com/images/jalephoto/jalephoto2002/jalephoto200200955/140822100-modern-gym-room-fitness-center-with-equipment-and-machines.jpg" alt="mountain">
-      <div class="team-content">
-        <h5 style="font-size: 2rem; font-weight: bold; color: blue">Blue Gym</h5>
-        <p class=" mt-2">Võ Thị Sáu, Hai Bà Trưng</p>
-      </div>
-    </div>
-    <div class="swiper-slide">
-      <img class="card-img" src="https://previews.123rf.com/images/jalephoto/jalephoto2002/jalephoto200200955/140822100-modern-gym-room-fitness-center-with-equipment-and-machines.jpg" alt="water">
-      <div class="team-content">
-        <h5 style="font-size: 2rem; font-weight: bold; color: blue">Blue Gym</h5>
-        <p class=" mt-2">Võ Thị Sáu, Hai Bà Trưng</p>
-      </div>
-    </div>
-    <div class="swiper-slide">
-      <img class="card-img" src="https://previews.123rf.com/images/jalephoto/jalephoto2002/jalephoto200200955/140822100-modern-gym-room-fitness-center-with-equipment-and-machines.jpg" alt="animal">
-      <div class="team-content">
-        <h5 style="font-size: 2rem; font-weight: bold; color: blue">Blue Gym</h5>
-        <p class=" mt-2">Võ Thị Sáu, Hai Bà Trưng</p>
-      </div>
-    </div>
+    @endforeach
   </div>
   <div class="swiper-pagination"></div>
   <div class="swiper-button-prev"></div>
@@ -41,12 +19,14 @@
 </div>
 
 @include('home.listRoom')
+@include('layout.footer')
 <style>
   .swiper-container {
     width: 100%;
     padding-top: 50px;
     padding-bottom: 50px;
     overflow: hidden;
+    background-color: #f2f2f2;
   }
 
   .swiper-slide {

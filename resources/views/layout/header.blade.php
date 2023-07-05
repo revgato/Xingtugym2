@@ -13,7 +13,7 @@
 
     <!-- Navbar brand -->
     <div class="ml-auto order-0">
-        <a class="navbar-brand mx-4" href="#">
+        <a class="navbar-brand mx-4" href="/">
             <span class="brand-name brand-name-light">Xingtu</span><span class="brand-name brand-name-bold">Gym</span>
         </a>
     </div>
@@ -35,7 +35,7 @@
 <style>
     .brand-name {
         font-family: 'Architects Daughter';
-        font-size: 22px;
+        font-size: 28px;
         display: inline-block;
     }
 

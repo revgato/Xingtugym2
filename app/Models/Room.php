@@ -24,5 +24,9 @@ class Room extends Model
     {
         return $this->belongsTo(User::class, 'owner_id', 'id');
     }
+    public function roomImages()
+    {
+        return $this->hasMany(RoomImage::class, 'room_id', 'id');
+    }
 
 }

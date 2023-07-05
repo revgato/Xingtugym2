@@ -1,38 +1,95 @@
 <h2 class="mx-5" style="font-weight: bold; color: #4066E0">Trending Gym Room</h2>
 <div class="container-fluid">
-    <div class="row d-flex justify-content-around flex-row pl-4 pt-4">
+    <div class="row d-flex justify-content-between flex-row pl-4 pt-4">
         <div class="col d-flex flex-column align-items-center">
-            <div class="restaurant-list d-flex justify-content-around flex-wrap" style="width: 90%">
-                @for($a = 0; $a < 10; $a++) <div class="restaurant-wrap mb-4" style="width: 18%" onclick="" data-id="">
-                    <div class="card position-relative" style="height: 15rem">
-                        <img class="card-img-top" src="https://previews.123rf.com/images/jalephoto/jalephoto2002/jalephoto200200955/140822100-modern-gym-room-fitness-center-with-equipment-and-machines.jpg" alt="Gym image" style="height: 50%; object-fit: cover;">
+            <div class="gym-list d-flex justify-content-start flex-wrap" style="width: 90%">
+                @foreach($gymRooms as $room) <div class="gym-wrap mb-4 mx-3" style="width: 18%" onclick="" data-id="">
+                    <div class="card position-relative" style="height: 20rem">
+                        @if($room->pool == 1)
+                        <span class="mark">
+                            <i class="fa-solid fa-crown fa-xs" style="color: #dbe826;"></i>
+                            プール
+                        </span>
+                        @endif
+                        <img class="card-img-top" src="{{ $room->firstImage}}" alt="Gym image" style="height: 50%; object-fit: cover;">
                         <div class="card-body d-flex flex-column justify-content-between">
                             <div>
-                                <h5 class="card-title" style="font-size: 2rem; font-weight: bold; color: #4066E0">Blue Gym</h5>
-                                <p class="card-text mt-2">Võ Thị Sáu, Hai Bà Trưng</p>
+                                <h5 class="card-title" style="font-size: 1.5rem; font-weight: bold; color: #4066E0">{{ $room->name}}</h5>
+                                <p class="card-text mt-2">{{ $room->address}}</p>
                             </div>
                             <div class="star-button d-flex justify-content-between mt-1">
+                                @php
+                                $star = $room->rating;
+                                $maxRating = 5;
+                                $percent = ($star / $maxRating) * 100;
+                                @endphp
+
                                 <div class="star-group">
-                                    @for ($i = 1; $i <= 5; $i++) <i class="fas fa-star"></i>
+                                    @for ($i = 1; $i <= 5; $i++) @if ($percent>= $i * 20)
+                                        <i class="fas fa-star"></i>
+                                        @elseif ($percent >= ($i - 0.5) * 20)
+                                        <i class="fas fa-star-half-alt"></i>
+                                        @else
+                                        <i class="far fa-star"></i>
+                                        @endif
                                         @endfor
                                 </div>
-                                <img src="/images/pool.jpg" alt="Pool" style="width: 40px;">
+
                             </div>
                         </div>
                     </div>
+                </div>
+                @endforeach
             </div>
-            @endfor
-        </div>
-        {{--Tạo đường link phân trang cho danh sách nhà hàng--}}
-    </div>
-</div>
-<style>
-    .fas {
-        color: #ffcc00;
-    }
+            {{--Tạo đường link phân trang cho danh sách nhà hàng--}}
+            <div class="pagination mt-4">
 
-    .card {
-        border-radius: 10px;
-        background-color: #fafbff;
-    }
-</style>
+                @if ($gymRooms->currentPage() > 1)
+                <a href="{{ $gymRooms->previousPageUrl() }}" class="page-link">前</a>
+                @endif
+
+                @for ($i = 1; $i <= $gymRooms->lastPage(); $i++)
+                    <a href="{{$gymRooms->url($i)  }} " class="page-link{{ ($gymRooms->currentPage() == $i) ? ' active' : '' }}">{{ $i }}</a>
+                    @endfor
+
+                    @if ($gymRooms->hasMorePages())
+                    <a href="{{ $gymRooms->nextPageUrl() }}" class="page-link">次</a>
+                    @endif
+            </div>
+        </div>
+    </div>
+    <style>
+        .fas {
+            color: #ffcc00;
+        }
+        .far{
+            color: #ffcc00;
+        }
+        .card {
+            border-radius: 10px;
+            background-color: #fafbff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-text {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .mark {
+            position: absolute;
+            top: 10px;
+            left: -20px;
+            transform: rotate(-45deg);
+            background-color: red;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            width: calc(20% + 20px);
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
+        }
+    </style>
