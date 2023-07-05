@@ -3,7 +3,7 @@
     <div class="row d-flex justify-content-between flex-row pl-4 pt-4">
         <div class="col d-flex flex-column align-items-center">
             <div class="gym-list d-flex justify-content-start flex-wrap" style="width: 90%">
-                @foreach($gymRooms as $room) <div class="gym-wrap mb-4 mx-3" style="width: 18%" onclick="" data-id="">
+                @foreach($gymRooms as $room) <div class="gym-wrap mb-4 mx-auto" style="width: 18%" onclick="" data-id="">
                     <div class="card position-relative" style="height: 20rem">
                         @if($room->pool == 1)
                         <span class="mark">
