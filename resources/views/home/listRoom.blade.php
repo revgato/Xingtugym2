@@ -1,15 +1,11 @@
 <h2 class="mx-5" style="font-weight: bold; color: #4066E0">Trending Gym Room</h2>
-<div class="container-fluid">
-    <div class="row d-flex justify-content-around flex-row pl-4 pt-4">
-        <div class="col d-flex flex-column align-items-center">
+<div class="container-fluid row pt-4">
+    
+        <div class="col d-flex flex-column justify-content-center align-items-center">
             <div class="gym-list d-flex justify-content-start flex-wrap" style="width: 90%">
-
                 @foreach($gymRooms as $room) 
-                @if(count($gymRooms)>5)
-                <div class="gym-wrap mb-4 mx-auto" style="width: 18%" onclick="" data-id="">
-                @else
-                <div class="gym-wrap mb-4 mx-3" style="width: 18%" onclick="" data-id="">
-                @endif
+                
+                <div class="gym-wrap mb-4 px-2" style="width: 20%" onclick="" data-id="">                
                     <div class="card position-relative" style="height: 20rem">
                         @if($room->pool == 1)
                         <span class="mark">
