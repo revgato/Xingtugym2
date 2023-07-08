@@ -23,7 +23,7 @@ Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, '
 
 Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
 
 // group gym 
 Route::prefix('/gym')->group(function () {
