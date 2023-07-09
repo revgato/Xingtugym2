@@ -5,31 +5,37 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
-    public function showLoginForm()
+    use AuthenticatesUsers;
+
+    protected $redirectTo = '/';
+
+    public function __construct()
     {
-        // return view('auth.login');
-        return "login";
+        $this->middleware('guest')->except('logout');
     }
 
-    public function login(Request $request)
+    public function showLoginForm()
     {
-        // // Validate the form data
-        // $this->validate($request, [
-        //     'email' => 'required|email',
-        //     'password' => 'required|min:8',
-        // ]);
-        // 
-        // // Attempt to log the user in
-        // if (auth()->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
-        //     // If successful, then redirect to their intended location
-        //     return redirect()->intended(route('home'));
+        return view('auth.login');
+    }
+
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        return redirect()->route('login')->with('error', 'メールアドレスまたはパスワードが間違っています!');
+    }
+
+    protected function authenticated()
+    {
+        // if(Auth::user()->role == 1){
+        //     return redirect()->route('admin.dashboard')->with('success', 'Welcome to admin dashboard');
         // }
-        // 
-        // // If unsuccessful, then redirect back to the login with the form data
-        // return redirect()->back()->withInput($request->only('email', 'remember'));
+        // else{
+        return redirect('/')->with('success', 'Welcome to home');
+        // }
     }
 
     public function logout(Request $request)
@@ -37,9 +43,9 @@ class LoginController extends Controller
         Auth::logout();
 
         $request->session()->invalidate();
-    
+
         $request->session()->regenerateToken();
-    
+
         return redirect()->route('home');
     }
 }

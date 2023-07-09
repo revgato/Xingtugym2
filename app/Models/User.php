@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', 'address', 'phone', 'username', 'password', 'avatar', 'role'
+        'name', 'address', 'phone', 'email', 'password', 'avatar', 'role'
     ];
 
     /**
@@ -41,6 +41,6 @@ class User extends Authenticatable
     // ];
 
     protected $columns = [
-        'id', 'name', 'address', 'phone', 'username', 'password', 'avatar', 'role'
+        'name', 'address', 'phone', 'email', 'password', 'avatar', 'role'
     ];
 }
