@@ -19,14 +19,13 @@
 </div>
 
 @include('home.listRoom')
-@include('layout.footer')
 <style>
   .swiper-container {
     width: 100%;
     padding-top: 50px;
     padding-bottom: 50px;
     overflow: hidden;
-    background-color: #f2f2f2;
+    background-color: #EFF6FF;
   }
 
   .swiper-slide {
