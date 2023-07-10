@@ -1,6 +1,7 @@
 @extends('layout.app')
 @section('content')
-<form action="" class="container card mt-5">
+<form action="{{ route('gym.store') }}" class="container card mt-5" method="post" enctype="multipart/form-data">
+    @csrf
     <div class="d-flex align-items-center p-5 justify-content-between">
         <div class="card-image">
             <div class="top">
@@ -12,7 +13,7 @@
                     <span class="select" role="button">Tải lên</span>
                 </span>
                 <span class="on-drop">Thả hình ảnh tại đây</span>
-                <input name="file[]" type="file" class="file" multiple />
+                <input name="file[]" type="file" class="file" multiple accept="image/*"/>
             </div>
 
             <!-- IMAGE PREVIEW CONTAINER -->
@@ -21,59 +22,58 @@
         <div class="register-form">
             <!-- Bên chứa trường input -->
             <h1 style="color: #5256ad;">Đăng ký thông tin phòng gym</h1>
-            <form>
-                <div class="form-group">
-                    <label for="name">Tên chủ phòng gym:</label>
-                    <input type="text" id="name" name="name" class="form-control" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" class="form-control" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label for="nameGym">Tên phòng gym:</label>
-                    <input type="text" id="nameGym" name="nameGym" class="form-control" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label for="address">Địa chỉ:</label>
-                    <input type="text" id="address" name="address" class="form-control" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label for="phone">Số điện thoại:</label>
-                    <input type="text" id="phone" name="phone" class="form-control" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label for="price">Mức giá 1 tháng:</label>
-                    <input type="text" id="price" name="price" class="form-control" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label for="services">Dịch vụ đi kèm:</label>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="pool" name="services[]" value="pool">
-                                <label for="pool">Hồ bơi</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="sauna" name="services[]" value="sauna">
-                                <label for="sauna">Xông hơi</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="park" name="services[]" value="park">
-                                <label for="park">Bãi đỗ xe</label>
-                            </div>
-                        </div>
-                        <!-- Thêm các tùy chọn dịch vụ khác vào đây -->
-                    </div>
-                </div>
 
-                <br>
-                <button type="submit" class="btn btn-primary form-control" style="background-color: #5256ad;">Đăng ký</button>
-            </form>
+            <div class="form-group">
+                <label for="name">Tên chủ phòng gym:</label>
+                <input type="text" id="nameOwner" name="nameOwner" class="form-control" autocomplete="off" >
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" class="form-control" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="nameGym">Tên phòng gym:</label>
+                <input type="text" id="nameGym" name="nameGym" class="form-control" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="address">Địa chỉ:</label>
+                <input type="text" id="address" name="address" class="form-control" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="phone">Số điện thoại:</label>
+                <input type="text" id="phone" name="phone" class="form-control" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="price">Mức giá 1 tháng:</label>
+                <input type="text" id="price" name="price" class="form-control" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="services">Dịch vụ đi kèm:</label>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="pool" name="services[]" value="pool">
+                            <label for="pool">Hồ bơi</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="sauna" name="services[]" value="sauna">
+                            <label for="sauna">Xông hơi</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="park" name="services[]" value="parking">
+                            <label for="parking">Bãi đỗ xe</label>
+                        </div>
+                    </div>
+                    <!-- Thêm các tùy chọn dịch vụ khác vào đây -->
+                </div>
+            </div>
+
+            <br>
+            <button type="submit" class="btn btn-primary form-control" style="background-color: #5256ad;">Đăng ký</button>
         </div>
     </div>
 </form>
@@ -311,5 +311,6 @@
         }
         showImages();
     });
+
 </script>
 @endsection

@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100);
             $table->string('address', 100);
+            $table->string('phone', 20)->nullable();
+            $table->string('email', 100)->nullable();
+            $table->string('nameOwner', 100)->nullable();
             $table->integer('price');
             $table->foreignId('owner_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('numberOfUsers')->default(0);
@@ -24,7 +27,7 @@ return new class extends Migration
             $table->boolean('sauna')->default(false);
             $table->boolean('coach')->default(false);
             $table->boolean('active')->default(true);
-            $table->boolean('is_admin_approved')->default(false);
+            $table->boolean('is_admin_approved')->default(true);
             $table->timestamps();
         });
     }
