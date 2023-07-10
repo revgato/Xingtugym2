@@ -126,43 +126,75 @@ class GymController extends Controller
         return redirect()->route('my-gym');
     }
 
-    //    public function search() {
-//        dd('search');
-//        $name = $request->input('inputName');
-//        $address = $request->input('inputAddress');
-////        $price = $request->input('inputPrice');
-////        $service = $request->input('inputService');
-//
-//        $query = Room::query();
-//
-////        if ($name) {
-//////            var_dump($name);
-////            $query->where('name', 'LIKE', '%' . $name . '%');
-////        }
-//
-//        if ($address) {
-//            $query->where('address', 'LIKE', '%' . $request->input('address') . '%');
-//        }
-
-//        if ($price) {
-////            var_dump($price);
-////            $query->where('price', $request->input('price'));
-//        }
-//
-//        if ($service) {
-////            var_dump($service);
-////            $query->where('service', 'LIKE', '%' . $request->input('service') . '%');
-//        }
-
-//        $query = Room::query();
-//        $gyms = $query->get();
-//
-//        return view('gym.index', compact('gyms'));
-//    }
-
     public function search(Request $request)
     {
         dd($request->all());
     }
+
+    public function show($id)
+    {
+        $gym = Room::findOrfail($id);
+        $poolAverageRating = 0;
+
+        if ($gym->pool == 1) {
+            $ratings = $gym->poolRatings;
+            $totalRating = 0;
+            if (isset($ratings)) {
+                $numRatings = count($ratings);
+
+                foreach ($ratings as $rating) {
+                    $totalRating += $rating->rating;
+                }
+
+                $poolAverageRating = $numRatings > 0 ? round($totalRating / $numRatings, 1) : 0;
+            }
+        }
+
+        $owner = $gym->owner;
+        $gym_imgs = [
+            'https://6design.vn/wp-content/uploads/2021/10/khong-gian-tap-chinh-gym-fox-1-1024x683.jpg',
+            'https://setupphonggym.vn/wp-content/uploads/2020/09/mau-thiet-ke-phong-gym-dep.jpg',
+            'https://cdn.thehinh.com/2018/05/xay-dung-phong-tap-gym-2.jpg'
+        ];
+
+
+        return view('gym.show', compact('gym', 'gym_imgs', 'poolAverageRating', 'owner'));
+    }
+
+    //    public function search() {
+    //        dd('search');
+    //        $name = $request->input('inputName');
+    //        $address = $request->input('inputAddress');
+    ////        $price = $request->input('inputPrice');
+    ////        $service = $request->input('inputService');
+    //
+    //        $query = Room::query();
+    //
+    ////        if ($name) {
+    //////            var_dump($name);
+    ////            $query->where('name', 'LIKE', '%' . $name . '%');
+    ////        }
+    //
+    //        if ($address) {
+    //            $query->where('address', 'LIKE', '%' . $request->input('address') . '%');
+    //        }
+
+    //        if ($price) {
+    ////            var_dump($price);
+    ////            $query->where('price', $request->input('price'));
+    //        }
+    //
+    //        if ($service) {
+    ////            var_dump($service);
+    ////            $query->where('service', 'LIKE', '%' . $request->input('service') . '%');
+    //        }
+
+    //        $query = Room::query();
+    //        $gyms = $query->get();
+    //
+    //        return view('gym.index', compact('gyms'));
+    //    }
+
+
 
 }

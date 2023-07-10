@@ -33,7 +33,8 @@ Route::prefix('/gym')->group(function () {
     Route::post('/create', [App\Http\Controllers\GymController::class, 'store'])->name('gym.store');
     Route::get('/update', [App\Http\Controllers\GymController::class, 'edit'])->name('gym.edit');
     Route::post('/update', [App\Http\Controllers\GymController::class, 'update'])->name('gym.update');
-    Route::get('/{id}', [App\Http\Controllers\GymController::class, 'show'])->name('gym.show');
+    Route::get('/search', [App\Http\Controllers\GymController::class, 'search'])->name('gym.search');
     Route::get('/', [App\Http\Controllers\GymController::class, 'index'])->name('gym.index');
+    Route::get('/{id}', [App\Http\Controllers\GymController::class, 'show'])->name('gym.show');
 });
 
