@@ -52,9 +52,35 @@
             height: 100vh;
         }
     </style>
+
+    <script>
+        var errorNotification = window.createNotification({
+            closeOnClick: true,
+            displayCloseButton: true,
+            positionClass: "nfc-top-right",
+            onclick: false,
+            showDuration: 3500,
+            theme: "error",
+        });
+    </script>
 </head>
 
 <body>
+
+    @if ($errors->any())
+        <script>
+            var strError = "";
+            @foreach ($errors->all() as $error)
+                strError += "{{ $error }}\n";
+            @endforeach
+            
+            errorNotification({
+                title: "エラー",
+                message: strError,
+            });
+        </script>
+    @endif
+
     <section class="vh-100">
         <div class="container-fluid h-custom">
             <div class="row d-flex justify-content-center align-items-center h-100">
