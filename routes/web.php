@@ -21,11 +21,12 @@ Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'
 Route::get('/signup', [App\Http\Controllers\Auth\SignUpController::class, 'showSignUpForm'])->name('signup');
 Route::post('/signup', [App\Http\Controllers\Auth\SignUpController::class, 'signup']);
 
-Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
 
 // group gym 
+Route::get('/my-gym', [App\Http\Controllers\GymController::class, 'index'])->name('my-gym');
 Route::prefix('/gym')->group(function () {
     Route::get('/create', [App\Http\Controllers\GymController::class, 'create'])->name('gym.create');
     Route::post('/create', [App\Http\Controllers\GymController::class, 'store'])->name('gym.store');

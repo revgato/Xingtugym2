@@ -1,6 +1,7 @@
 @extends('layout.app')
 @section('content')
-<form action="" class="container card mt-5">
+<form action="{{ route('gym.update') }}" class="container card mt-5" method="post" enctype="multipart/form-data">
+    @csrf
     <div class="d-flex align-items-center p-5 justify-content-between">
         <div class="card-image">
             <div class="top">
@@ -21,59 +22,69 @@
         <div class="register-form">
             <!-- Bên chứa trường input -->
             <h1 style="color: #5256ad;">Chỉnh sửa thông tin phòng gym</h1>
-            <form>
-                <div class="form-group">
-                    <label for="name">Tên chủ phòng gym:</label>
-                    <input type="text" id="name" name="name" class="form-control" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" class="form-control" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label for="nameGym">Tên phòng gym:</label>
-                    <input type="text" id="nameGym" name="nameGym" class="form-control" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label for="address">Địa chỉ:</label>
-                    <input type="text" id="address" name="address" class="form-control" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label for="phone">Số điện thoại:</label>
-                    <input type="text" id="phone" name="phone" class="form-control" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label for="price">Mức giá 1 tháng:</label>
-                    <input type="text" id="price" name="price" class="form-control" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label for="services">Dịch vụ đi kèm:</label>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="pool" name="services[]" value="pool">
-                                <label for="pool">Hồ bơi</label>
-                            </div>
+            <div class="form-group">
+                <label for="name">Tên chủ phòng gym:</label>
+                <input type="text" id="name" name="name" class="form-control" autocomplete="off" value="{{ $gym->nameOwner }}">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" class="form-control" autocomplete="off" value="{{ $gym->email }}">
+            </div>
+            <div class="form-group">
+                <label for="nameGym">Tên phòng gym:</label>
+                <input type="text" id="nameGym" name="nameGym" class="form-control" autocomplete="off" value="{{ $gym->name }}">
+            </div>
+            <div class="form-group">
+                <label for="address">Địa chỉ:</label>
+                <input type="text" id="address" name="address" class="form-control" autocomplete="off" value="{{ $gym->address }}">
+            </div>
+            <div class="form-group">
+                <label for="phone">Số điện thoại:</label>
+                <input type="text" id="phone" name="phone" class="form-control" autocomplete="off" value="{{ $gym->phone }}">
+            </div>
+            <div class="form-group">
+                <label for="price">Mức giá 1 tháng:</label>
+                <input type="text" id="price" name="price" class="form-control" autocomplete="off" value="{{ $gym->price }}">
+            </div>
+            <div class="form-group">
+                <label for="services">Dịch vụ đi kèm:</label>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="checkbox-item">
+                            @if($gym->pool == 1)
+                            <input type="checkbox" id="pool" name="services[]" value="pool" checked>
+                            @else
+                            <input type="checkbox" id="pool" name="services[]" value="pool">
+                            @endif
+                            <label for="pool">Hồ bơi</label>
                         </div>
-                        <div class="col-md-4">
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="sauna" name="services[]" value="sauna">
-                                <label for="sauna">Xông hơi</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="park" name="services[]" value="park">
-                                <label for="park">Bãi đỗ xe</label>
-                            </div>
-                        </div>
-                        <!-- Thêm các tùy chọn dịch vụ khác vào đây -->
                     </div>
+                    <div class="col-md-4">
+                        <div class="checkbox-item">
+                            @if($gym->sauna == 1)
+                            <input type="checkbox" id="sauna" name="services[]" value="sauna" checked>
+                            @else
+                            <input type="checkbox" id="sauna" name="services[]" value="sauna">
+                            @endif
+                            <label for="sauna">Xông hơi</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="checkbox-item">
+                            @if($gym->parking == 1)
+                            <input type="checkbox" id="park" name="services[]" value="parking" checked>
+                            @else
+                            <input type="checkbox" id="park" name="services[]" value="parking">
+                            @endif
+                            <label for="parking">Bãi đỗ xe</label>
+                        </div>
+                    </div>
+                    <!-- Thêm các tùy chọn dịch vụ khác vào đây -->
                 </div>
+            </div>
 
-                <br>
-                <button type="submit" class="btn btn-primary form-control" style="background-color: #5256ad;">Đăng ký</button>
-            </form>
+            <br>
+            <button type="submit" class="btn btn-primary form-control" style="background-color: #5256ad;">Chỉnh sửa</button>
         </div>
     </div>
 </form>
@@ -243,8 +254,10 @@
      * */
 
     /** Variables */
-    let files = [],
-        dragArea = document.querySelector('.drag-area'),
+    let files = [];
+       
+       
+    let dragArea = document.querySelector('.drag-area'),
         input = document.querySelector('.drag-area input'),
         button = document.querySelector('.card button'),
         select = document.querySelector('.drag-area .select'),
@@ -277,6 +290,7 @@
 			    <img src="${URL.createObjectURL(curr)}" />
 			</div>`
         }, '');
+        console.log(files);
     }
 
     /* DELETE IMAGE */

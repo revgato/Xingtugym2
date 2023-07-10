@@ -30,28 +30,76 @@
   <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
 
   <link href='https://fonts.googleapis.com/css?family=Architects Daughter' rel='stylesheet'>
+  <style>
+    .brand-name {
+      font-family: 'Architects Daughter';
+      font-size: 28px;
+      display: inline-block;
+    }
+
+    .brand-name-light {
+      font-weight: lighter;
+    }
+
+    .brand-name-bold {
+      font-weight: bold;
+    }
+
+    .container-fluid {
+      background-image: url('/images/pool_1.jpg');
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+    }
+  </style>
 </head>
 
 <body>
-  <form method="POST" action="{{ route('login') }}">
-    @csrf
+  <section class="vh-100">
+    <div class="container-fluid h-custom">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-9 col-lg-6 col-xl-5">
 
-    <div>
-      <label for="email">{{ __('メール (Địa chỉ Email)') }}</label>
-      <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus>
-    </div>
+        </div>
+        <div class=" card col-md-8 col-lg-6 col-xl-4 offset-xl-1 p-5">
+          <form method="POST" action="{{ route('login') }}">
+            @csrf
+            <div class="d-flex flex-row align-items-center justify-content-center mb-5">
+              <a class="navbar-brand mx-4" href="/">
+                <span class="brand-name brand-name-light">Xingtu</span><span class="brand-name brand-name-bold">Gym</span>
+              </a>
+            </div>
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+              <label class="form-label" style="font-weight: 600;">メール (Địa chỉ Email)</label>
+              <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="Enter a valid email address" required />
+            </div>
 
-    <div>
-      <label for="password">{{ __('パスワード (Mật khẩu)') }}</label>
-      <input id="password" type="password" name="password" required>
-    </div>
+            <!-- Password input -->
+            <div class="form-outline mb-3">
+              <label class="form-label" style="font-weight: 600;">パスワード (Mật khẩu)</label>
+              <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="Enter password" required />
+            </div>
 
-    <div>
-      <button type="submit">
-        {{ __('ログイン') }}
-      </button>
+            <div class="d-flex justify-content-between align-items-center">
+              <!-- Checkbox -->
+              <div class="mb-0">
+
+              </div>
+              <a href="#" class="link">パスワードを忘れの方はこちら</a>
+            </div>
+
+            <div class="text-center text-lg-start mt-4 pt-2">
+              <button type="submit" class="btn btn-primary btn-lg w-100 " style="font-weight: 600; padding-left: 2.5rem; padding-right: 2.5rem;">ログイン</button>
+
+              <p class="small fw-bold mt-2 pt-1 mb-0">アカウントを持っていませんか？ <a href="/signup" class="link-danger">サインアップ</a></p>
+            </div>
+
+          </form>
+        </div>
+      </div>
     </div>
-  </form>
+  </section>
 </body>
 
 </html>

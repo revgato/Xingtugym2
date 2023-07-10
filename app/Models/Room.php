@@ -12,11 +12,11 @@ class Room extends Model
     protected $table = 'rooms';
 
     protected $fillable = [
-        'id', 'name', 'address', 'price', 'owner_id', 'numberOfUsers', 'rating', 'pool', 'parking', 'sauna', 'coach', 'active', 'is_admin_approved'
+        'id', 'name', 'address','phone','email','nameOwner', 'price', 'owner_id', 'numberOfUsers', 'rating', 'pool', 'parking', 'sauna', 'coach', 'active', 'is_admin_approved'
     ];
 
     protected $visible = [
-        'id', 'name', 'address', 'price', 'owner_id', 'numberOfUsers', 'rating', 'pool', 'parking', 'sauna', 'coach', 'active', 'is_admin_approved'
+        'id', 'name', 'address','phone','email','nameOwner', 'price', 'owner_id', 'numberOfUsers', 'rating', 'pool', 'parking', 'sauna', 'coach', 'active', 'is_admin_approved'
     ];
 
     // belongsTo
