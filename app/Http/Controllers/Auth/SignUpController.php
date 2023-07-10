@@ -53,6 +53,6 @@ class SignUpController extends Controller
 
         $this->create($request->all());
 
-        return redirect()->route('login')->with('success', 'Sign up successfully!');
+        return redirect()->route('login')->with('signup_success', 'アカウントを作成しました!');
     }
 }

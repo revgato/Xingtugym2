@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
 {
@@ -25,16 +27,19 @@ class LoginController extends Controller
 
     protected function sendFailedLoginResponse(Request $request)
     {
-        return redirect()->route('login')->with('error', 'メールアドレスまたはパスワードが間違っています!');
+        return redirect()->route('login')->with('login_error', 'メールアドレスまたはパスワードが間違っています!');
     }
 
     protected function authenticated()
     {
+        // Update last_login_at at table users
+        DB::table('users')->where('id', Auth::user()->id)->update(['last_login_at' => Carbon::now()->setTimezone('Asia/Ho_Chi_Minh')->toDateTimeString()]);
+
         // if(Auth::user()->role == 1){
         //     return redirect()->route('admin.dashboard')->with('success', 'Welcome to admin dashboard');
         // }
         // else{
-        return redirect('/')->with('success', 'Welcome to home');
+        return redirect('/')->with('login_success', 'ログイン成功しました!');
         // }
     }
 
@@ -46,6 +51,6 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('home');
+        return redirect()->route('home')->with('logout_success', 'ログアウトしました!');
     }
 }

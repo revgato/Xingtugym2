@@ -52,9 +52,48 @@
       height: 100vh;
     }
   </style>
+
+  <script>
+    var errorNotification = window.createNotification({
+      closeOnClick: true,
+      displayCloseButton: true,
+      positionClass: "nfc-top-right",
+      onclick: false,
+      showDuration: 3500,
+      theme: "error",
+    });
+
+    var successNotification = window.createNotification({
+      closeOnClick: true,
+      displayCloseButton: true,
+      positionClass: "nfc-top-right",
+      onclick: false,
+      showDuration: 3500,
+      theme: "success",
+    });
+  </script>
 </head>
 
 <body>
+
+  @if (session('login_error'))
+    <script>
+      errorNotification({
+        title: 'エラー',
+        message: '{{ session('login_error') }}'
+      });
+    </script>
+  @endif
+
+  @if (session('signup_success'))
+    <script>
+      successNotification({
+        title: '成功',
+        message: '{{ session('signup_success') }}'
+      });
+    </script>
+  @endif
+  
   <section class="vh-100">
     <div class="container-fluid h-custom">
       <div class="row d-flex justify-content-center align-items-center h-100">
@@ -69,6 +108,7 @@
                 <span class="brand-name brand-name-light">Xingtu</span><span class="brand-name brand-name-bold">Gym</span>
               </a>
             </div>
+
             <!-- Email input -->
             <div class="form-outline mb-4">
               <label class="form-label" style="font-weight: 600;">メール (Địa chỉ Email)</label>

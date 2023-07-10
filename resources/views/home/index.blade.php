@@ -1,6 +1,25 @@
 @extends('layout.app')
 
 @section('content')
+
+@if(session('login_success'))
+  <script>
+    successNotification({
+      title: 'ログイン成功',
+      message: '{{ session('login_success') }}'
+    });
+  </script>
+@endif
+
+@if(session('logout_success'))
+  <script>
+    successNotification({
+      title: 'ログアウト成功',
+      message: '{{ session('logout_success') }}'
+    });
+  </script>
+@endif
+
 <div class="swiper-container">
   <div class="swiper-wrapper">
     @foreach($topGym as $gym)

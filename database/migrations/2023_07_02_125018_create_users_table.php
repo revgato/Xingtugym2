@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password', 255);
             $table->string('avatar', 255)->nullable();
             $table->enum('role', ['admin', 'gym-owner', 'user'])->default('user');
+            $table->timestamp('last_login_at')->nullable()->default(null);
             $table->timestamps();
         });
     }

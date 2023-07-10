@@ -94,8 +94,7 @@
                         <div class="form-outline mb-3">
                             <label class="form-label" style="font-weight: 600;" for="role">{{ __('あなたは (Bạn là)') }}</label>
                             <select class="form-control form-control-lg" name="role" id="role">
-                                <option value="null"></option>
-                                <option value="user">ユーザー (Người dùng)</option>
+                                <option value="user" selected>ユーザー (Người dùng)</option>
                                 <option value="gym-owner">ジムのオーナー (Chủ phòng gym)</option>
                             </select>
                         </div>

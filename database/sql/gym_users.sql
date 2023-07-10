@@ -1,0 +1,8 @@
+INSERT INTO `users`
+(`id`, `name`, `address`, `phone`, `email`, `password`, `avatar`, `role`, `created_at`, `updated_at`)
+VALUES 
+(1,'Lee Bao Anh','22 Tran Quang Dieu , Dong Da , Ha Noi','0963559370','anh.lb194470@gmail.com','$2y$10$uOBGvrvG8IUHTudXI0d4sOUHAoXmFtmElCgeT7lsrkWIiWDmjmTXu','https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png','user',NULL,NULL),
+(2,'Lee Bao Anh','22 Tran Quang Dieu , Dong Da , Ha Noi','0963559371','dxdass3105@gmail.com','$2y$10$DgcVgZhOayiTXDv/P7MDa.yFlfk44YMofc3uhgpqKH/F1DWmRBPIq','https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png','admin',NULL,NULL),
+(3,'Lee Bao Anh','22 Tran Quang Dieu , Dong Da , Ha Noi','0963559372','anh.lb194470@sis.hust.edu.vn','$2y$10$RnupcYpRIJ0Gg7V9ZymKx.Oh6FuDtqrmIHq/hYdZrQ3yo7K8qxYbq','https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png','user',NULL,NULL),
+(4,'Do Minh Quan','22 Tran Quang Dieu , Dong Da , Ha Noi','0963559373','anhlbaws3105@gmail.com','$2y$10$kY0UVtgz8qXOAfQJUhTmPOp5a3cxzluoPkIoksyySk3prJfvqN8TW','https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png','gym-owner',NULL,NULL),
+(5,'Lee Bao Anh','22 Tran Quang Dieu , Dong Da , Ha Noi','0963559377','anhlbio@gmail.com','$2y$10$M4RK/GBpO61o1ebU99uETegokmalset9NIcZ6qG4GsGWut3m/i2BW','https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png','gym-owner',NULL,NULL);
