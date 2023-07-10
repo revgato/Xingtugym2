@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GymController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,12 +26,14 @@ Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
 
-// group gym 
-Route::get('/my-gym', [App\Http\Controllers\GymController::class, 'index'])->name('my-gym');
+// group gym
+Route::get('/my-gym', [App\Http\Controllers\GymController::class, 'myGym'])->name('my-gym');
 Route::prefix('/gym')->group(function () {
     Route::get('/create', [App\Http\Controllers\GymController::class, 'create'])->name('gym.create');
     Route::post('/create', [App\Http\Controllers\GymController::class, 'store'])->name('gym.store');
     Route::get('/update', [App\Http\Controllers\GymController::class, 'edit'])->name('gym.edit');
     Route::post('/update', [App\Http\Controllers\GymController::class, 'update'])->name('gym.update');
+    Route::get('/{id}', [App\Http\Controllers\GymController::class, 'show'])->name('gym.show');
+    Route::get('/', [App\Http\Controllers\GymController::class, 'index'])->name('gym.index');
 });
 
