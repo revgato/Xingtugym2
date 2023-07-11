@@ -194,7 +194,7 @@ class GymController extends Controller
 
         if ($service) {
             if ($service == 1) {
-                $query->where('pool', 1)->orderBy();
+                $query->where('pool', 1)->orderBy('pool_rating', 'desc');
             } else {
                 if ($service == 2) {
                     $query->where('sauna', 1);
