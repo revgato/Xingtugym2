@@ -1,14 +1,13 @@
-
-INSERT INTO `rooms` (`id`, `name`, `address`, `price`, `owner_id`, `numberOfUsers`, `rating`, `pool`, `parking`, `sauna`, `coach`, `active`, `is_admin_approved`, `created_at`, `updated_at`)
-VALUES 
-(1,'California Fitness & Yoga','Số 126 Hùng Vương, P.12, Q.5, Tp. Hồ Chí Minh, Việt Nam',400000,4,0,NULL,0,0,0,0,1,1,NULL,NULL),
-(2,'Nshape Fitness','16 P.Hàm Long, Phan Chu Trinh, Hoàn Kiếm, Hà Nội',500000,4,0,NULL,1,1,0,1,1,1,NULL,NULL),
-(3,'Saiyan Fitness','219 P. Trung Kính, Yên Hoà, Cầu Giấy, Hà Nội',750000,4,0,NULL,0,1,0,1,1,1,NULL,NULL),
-(4,'Fuel Fitness','99 P. Mạc Thái Tổ, Yên Hoà, Cầu Giấy, Hà Nội',400000,4,0,NULL,0,1,0,1,1,1,NULL,NULL),
-(5,'Elite Fitness','Tầng 6, Vinhomes 54A Nguyễn Chí Thanh, Ngọc Khánh, Ba Đình, Hà Nội',800000,4,0,NULL,0,1,1,1,1,1,NULL,NULL),
-(6,'Fitness World','29 P. Hoàng Đạo Thúy, Trung Hoà, Cầu Giấy, Hà Nội',625000,4,0,NULL,0,0,1,0,1,1,NULL,NULL),
-(7,'XFitness','2QP5+MX3, P. Hàm Nghi, Cầu Diễn, Từ Liêm, Hà Nội',700000,4,0,NULL,0,0,1,0,1,1,NULL,NULL),
-(8,'MD Fitness','194 Thái Thịnh, Cây Xăng Dầu Thái Thịnh, Hà Nội',550000,4,0,NULL,1,1,1,1,1,1,NULL,NULL),
-(9,'Level Fitness Center','Tầng 6, The Nine Tower – 09 Phạm Văn Đồng, Cầu Giấy, HN',1200000,4,0,NULL,1,1,1,1,1,1,NULL,NULL),
-(10,'Nuke Fitness','tầng 2, B14, phạm ngọc thạch, kim liên, đống đa Hà Nội',420000,4,0,NULL,0,1,0,1,1,1,NULL,NULL),
-(11,'HPC Gym','Tầng 2, số 23 Ngõ 28 Nguyên Hồng, Đống Đa (Ngõ 97 Nguyễn Chí Thanh), Hà Nội',635000,4,0,NULL,0,1,0,1,1,1,NULL,NULL);
+INSERT INTO `rooms` VALUES
+(1, "California Gym", "3,Phuong Bach Mai,Quan Hai Ba Trung,Thanh pho Ha Noi", "0990502683", "user1@gmail.com", "Mai Kien Phuong", "400000", "1", "100", "4.5", "4.5", "1", "1", "0", "1", "1", "1", "2022-01-01 00:00:00", "2022-01-01 00:00:00"),
+(2, "Sunshine Gym", "Xa Tien Phuong,Huyen Chuong My,Thanh pho Ha Noi", "0927126230", "user2@gmail.com", "Buon Hoi Khoa", "200000", "2", "100", "3.8", "3.8", "0", "1", "1", "0", "1", "1", "2022-01-01 00:00:00", "2022-01-01 00:00:00"),
+(3, "New World", "Xa Tri Thuy,Huyen Phu Xuyen,Thanh pho Ha Noi", "0991990041", "user3@gmail.com", "Sang Mai Thang", "100000", "3", "40", "4.2", "4.2", "0", "0", "0", "0", "1", "1", "2022-01-01 00:00:00", "2022-01-01 00:00:00"),
+(4, "Binh Minh", "Phuong Bach Mai,Quan Hai Ba Trung,Thanh pho Ha Noi", "0972032686", "user4@gmail.com", "Bui Suong Mua", "400000", "4", "100", "4", "4", "1", "1", "1", "1", "1", "1", "2022-01-01 00:00:00", "2022-01-01 00:00:00"),
+(5, "Hoa Co May", "Xa Kim Chung,Huyen Hoai Duc,Thanh pho Ha Noi", "0928155090", "user5@gmail.com", "Tu Khu Cuong", "100000", "5", "40", "3.5", "3.5", "0", "0", "1", "0", "1", "1", "2022-01-01 00:00:00", "2022-01-01 00:00:00"),
+(6, "Zhongli Gym", "Quan 1, Thanh Pho Ho Chi Minh", "0958504851", "user6@gmail.com", "Chim Cao Duc", "800000", "6", "100", "4.8", "4.8", "1", "1", "1", "1", "1", "1", "2022-01-01 00:00:00", "2022-01-01 00:00:00"),
+(7, "Hoi tho Mat Troi", "Cau Giay, Thanh pho Ha Noi", "0988208169", "user7@gmail.com", "Pho Khoe Quynh", "100000", "7", "40", "3.7", "3.7", "0", "1", "1", "0", "1", "1", "2022-01-01 00:00:00", "2022-01-01 00:00:00"),
+(8, "No.1 Gym", "Thanh pho Vinh, Nghe An", "0964611916", "user8@gmail.com", "Mai Van Ca", "350000", "8", "100", "4.3", "4.3", "0", "0", "0", "0", "1", "1", "2022-01-01 00:00:00", "2022-01-01 00:00:00"),
+(9, "Best of you", "Pho Hang Vai, Hoan Kiem, Ha Noi", "0978128804", "user9@gmail.com", "Uong Hoang Phi", "150000", "9", "40", "4.6", "4.6", "0", "1", "1", "1", "1", "1", "2022-01-01 00:00:00", "2022-01-01 00:00:00"),
+(10, "Kirei Gym", "Hoang Ly, Hoang Hoa, Thanh Hoa", "0922561296", "user10@gmail.com", "Le Trinh Muon", "100000", "10", "40", "3.9", "3.9", "0", "0", "1", "0", "1", "1", "2022-01-01 00:00:00", "2022-01-01 00:00:00"),
+(11, "Gym World", "Xa Hoa Tien,Huyen Hoa Vang,Thanh pho Da Nang", "0914009729", "user11@gmail.com", "The Suong Canh", "150000", "9", "40", "4.6", "4.6", "0", "1", "1", "1", "1", "1", "2022-01-01 00:00:00", "2022-01-01 00:00:00"),
+(12, "Gym Fitness", "Xa Hop Tien,Huyen Dong Hy,Tinh Thai Nguyen", "0984756998", "user12@gmail.com", "Ky Hai Khanh", "200000", "9", "40", "4.6", "4.6", "0", "1", "1", "1", "1", "1", "2022-01-01 00:00:00", "2022-01-01 00:00:00");
