@@ -125,11 +125,6 @@ class GymController extends Controller
         return redirect()->route('my-gym');
     }
 
-//    public function search(Request $request)
-//    {
-//        dd($request->all());
-//    }
-
     public function show($id)
     {
         $gym = Room::findOrfail($id);
@@ -151,7 +146,6 @@ class GymController extends Controller
 
         $owner = $gym->owner;
         $gym_imgs = $gym->roomImages()->get()->take(3);
-//        dd($gym_imgs);
         return view('gym.show', compact('gym', 'gym_imgs', 'poolAverageRating', 'owner'));
     }
 
@@ -161,12 +155,6 @@ class GymController extends Controller
         $address = $request->input('inputAddress') ? $request->input('inputAddress') : null;
         $price = $request->input('inputPrice') ? $request->input('inputPrice') : null;
         $service = $request->input('inputService') ? $request->input('inputService') : null;
-//
-//        var_dump('name: ' . $name);
-//        var_dump('address: ' . $address);
-//        var_dump('price: ' . $price);
-//        var_dump('service: ' . $service);
-
 
         $query = Room::query();
 
