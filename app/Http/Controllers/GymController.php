@@ -7,11 +7,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
 
 class GymController extends Controller
 {
-
     public function myGym()
     {
         //find gym by user_id
@@ -336,6 +334,5 @@ class GymController extends Controller
 
         return view('gym.owner.show', compact('gym', 'gym_imgs', 'poolAverageRating', 'owner'));
     }
-
 
 }

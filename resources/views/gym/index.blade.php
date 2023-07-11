@@ -1,341 +1,99 @@
-<?php
+@extends('layout.app')
 
-namespace App\Http\Controllers;
+@section('content')
+    <div id="search-wrapper" class="search-wrapper m-5 pl-5 pr-5">
+        <p style="font-size: 2rem; font-weight: bold">検索</p>
 
-use App\Models\Room;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
+        <form action="{{ route('gym.search') }}" method="GET">
+            @csrf
+            <div class="form-row">
+                <div class="form-group col-lg-12">
+                    <input type="text" class="form-control" id="inputName" name="inputName" placeholder="名前">
+                </div>
+            </div>
 
-class GymController extends Controller
-{
+            <div class="form-row d-flex mt-4 justify-content-between">
+                <div class="form-group col-lg-3">
+                    <input type="text" class="form-control" id="inputAddress" name="inputAddress" placeholder="住所">
+                </div>
+                {{-- phần dropdown--}}
+                <div class="custom-select col-lg-3">
+                    <select name="inputPrice" id="inputPrice" class="col-lg-3">
+                        <option value="" disabled selected hidden>価格</option>
+                        <option value="1">10万-30万</option>
+                        <option value="2">30万-50万</option>
+                        <option value="3">50万以上</option>
+                    </select>
+                </div>
 
-    public function myGym()
-    {
-        //find gym by user_id
-        $gym = Room::where('owner_id', Auth::user()->id)->first();
-        //redirect to create gym if not found
-        if (!$gym) {
-            return redirect()->route('gym.create');
-        } else {
-            return redirect()->route('gym.edit');
-        }
-    }
+                <div class="custom-select col-lg-3">
+                    <select name="inputService" id="inputService" class="col-lg-3">
+                        <option value="" disabled selected hidden class="placeholder-option">サービス</option>
+                        <option value="1">プール</option>
+                        <option value="2">サウナ室</option>
+                        <option value="3">駐車場</option>
+                    </select>
 
-    public function index()
-    {
-        // Lấy danh sách phòng gym phân trang
-        $gymRooms = Room::orderByDesc('rating')->paginate(10);
+                </div>
 
-        // Thêm RoomImage cho gymRooms
-        foreach ($gymRooms as $gym) {
-            $roomImages = $gym->roomImages()->get();
-            if ($roomImages->isNotEmpty()) {
-                $gym->roomImages = $roomImages;
-                $gym->firstImage = $roomImages->first()->image_url;
-            } else {
-                $gym->roomImages = null;
-                $gym->firstImage = null;
-            }
-        }
-        return view('gym.index', compact('gymRooms'));
-    }
+                <button type="submit" class="btn btn-primary">検索</button>
 
-    public function create()
-    {
-        return view('gym.create');
-    }
+            </div>
 
-    public function store(Request $request)
-    {
-        //if gym already exist
-        $gym = Room::where('owner_id', Auth::user()->id)->first();
-        if ($gym) {
-            return redirect()->route('gym.edit');
-        }
-        $gym = [
-            'owner_id' => Auth::user()->id,
-            'name' => $request->nameGym,
-            'phone' => $request->phone,
-            'email' => $request->email,
-            'nameOwner' => $request->nameOwner,
-            'address' => $request->address,
-            'price' => $request->price,
-        ];
-        foreach ($request->services as $service) {
-            $gym[$service] = 1;
-        }
-        Room::create($gym);
-        User::where('id', Auth::user()->id)->update(['phone' => $request->phone]);
+        </form>
+    </div>
 
-        $gym = Room::where('owner_id', Auth::user()->id)->first();
-        //file upload
-        $fileImages = $request->file('file');
-        if ($fileImages) {
-            foreach ($fileImages as $file) {
-                $fileName = $file->getClientOriginalName();
-                $fileName = '/images/roomImages/' . uniqid('gymImage') . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('images/roomImages'), $fileName);
-                DB::table('roomimages')->insert([
-                    'room_id' => $gym->id,
-                    'image_url' => $fileName,
-                ]);
-            }
-        }
-        return redirect()->route('my-gym');
-    }
 
-    public function edit()
-    {
-        $gym = Room::where('owner_id', Auth::user()->id)->first();
-        $images = $gym->roomImages()->get();
-        return view('gym.edit', compact('gym', 'images'));
-    }
+    @include('gym.listRoom')
 
-    public function update(Request $request)
-    {
-        // dd($request->all());
-        //file upload
-
-        $gym = Room::where('owner_id', Auth::user()->id)->first();
-        $fileImages = $request->file('file');
-        if ($fileImages) {
-            foreach ($fileImages as $file) {
-                $fileName = $file->getClientOriginalName();
-                $fileName = '/images/roomImages/' . uniqid('gymImage') . '.' . $file->getClientOriginalExtension();
-                //if exist file name skip
-                if (DB::table('roomimages')->where('image_url', $fileName)->first()) {
-                    continue;
-                }
-                $file->move(public_path('images/roomImages'), $fileName);
-                DB::table('roomimages')->insert([
-                    'room_id' => $gym->id,
-                    'image_url' => $fileName,
-                ]);
-            }
-        }
-        $gym->name = $request->nameGym;
-        $gym->address = $request->address;
-        $gym->price = $request->price;
-        foreach ($request->services as $service) {
-            $gym[$service] = 1;
-        }
-        $gym->save();
-        User::where('id', Auth::user()->id)->update(['phone' => $request->phone]);
-        return redirect()->route('my-gym');
-    }
-
-//    public function search(Request $request)
-//    {
-//        dd($request->all());
-//    }
-
-    public function show($id)
-    {
-        $gym = Room::findOrfail($id);
-        $poolAverageRating = 0;
-
-        if ($gym->pool == 1) {
-            $ratings = $gym->poolRatings;
-            $totalRating = 0;
-            if (isset($ratings)) {
-                $numRatings = count($ratings);
-
-                foreach ($ratings as $rating) {
-                    $totalRating += $rating->rating;
-                }
-
-                $poolAverageRating = $numRatings > 0 ? round($totalRating / $numRatings, 1) : 0;
-            }
+    <style>
+        #search-wrapper.search-wrapper input {
+            line-height: 53.6px;
         }
 
-        $owner = $gym->owner;
-        $gym_imgs = $gym->roomImages()->get()->take(3);
-//        dd($gym_imgs);
-        return view('gym.show', compact('gym', 'gym_imgs', 'poolAverageRating', 'owner'));
-    }
+        #search-wrapper.search-wrapper select {
+            height: 67.2px;
+            padding: 0.375rem 0.75rem;
+            color: #212529;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: 0.375rem;
+            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 
-    public function search(Request $request)
-    {
-        $name = $request->input('inputName') ? $request->input('inputName') : null;
-        $address = $request->input('inputAddress') ? $request->input('inputAddress') : null;
-        $price = $request->input('inputPrice') ? $request->input('inputPrice') : null;
-        $service = $request->input('inputService') ? $request->input('inputService') : null;
-//
-//        var_dump('name: ' . $name);
-//        var_dump('address: ' . $address);
-//        var_dump('price: ' . $price);
-//        var_dump('service: ' . $service);
+            /* Ẩn mũi tên dropdown mặc định */
 
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
 
-        $query = Room::query();
-
-        if ($name) {
-            $query->where('name', 'LIKE', '%' . $name . '%');
         }
 
-        if ($address) {
-            $query->where('address', 'LIKE', '%' . $address . '%');
+
+        #search-wrapper.search-wrapper button {
+            padding: 0 65px;
+            height: 67.2px;
         }
 
-        if ($price) {
-            if ($price == 1) {
-                $query->where('price', '>=', 100000)->where('price', '<', 300000);
-            } else {
-                if ($price == 2) {
-                    $query->where('price', '>=', 300000)->where('price', '<', 500000);
-                } else {
-                    if ($price == 3) {
-                        $query->where('price', '>=', 500000);
-                    }
-                }
-            }
+
+        /* CSS cho giao diện dropdown tùy chỉnh */
+        .custom-select {
+            position: relative;
         }
 
-        if ($service) {
-            if ($service == 1) {
-                $query->where('pool', 1);
-            } else {
-                if ($service == 2) {
-                    $query->where('sauna', 1);
-                } else {
-                    if ($service == 3) {
-                        $query->where('packing', 1);
-                    }
-                }
-            }
-        }
-        $gymRooms = $query->paginate(10);
-        // Thêm RoomImage cho gymRooms
-        foreach ($gymRooms as $gym) {
-            $roomImages = $gym->roomImages()->get();
-            if ($roomImages->isNotEmpty()) {
-                $gym->roomImages = $roomImages;
-                $gym->firstImage = $roomImages->first()->image_url;
-            } else {
-                $gym->roomImages = null;
-                $gym->firstImage = null;
-            }
-        }
-        return view('gym.index', compact('gymRooms'));
-    }
-
-
-    // phần dành cho gym-owner
-    public function ownerCreate()
-    {
-        return view('gym.owner.create');
-    }
-
-    public function ownerStore(Request $request)
-    {
-        //if gym already exist
-        $gym = Room::where('owner_id', Auth::user()->id)->first();
-        if ($gym) {
-            return redirect()->route('gym.edit');
-        }
-        $gym = [
-            'owner_id' => Auth::user()->id,
-            'name' => $request->nameGym,
-            'phone' => $request->phone,
-            'email' => $request->email,
-            'nameOwner' => $request->nameOwner,
-            'address' => $request->address,
-            'price' => $request->price,
-        ];
-        foreach ($request->services as $service) {
-            $gym[$service] = 1;
-        }
-        Room::create($gym);
-        User::where('id', Auth::user()->id)->update(['phone' => $request->phone]);
-
-        $gym = Room::where('owner_id', Auth::user()->id)->first();
-        //file upload
-        $fileImages = $request->file('file');
-        if ($fileImages) {
-            foreach ($fileImages as $file) {
-                $fileName = $file->getClientOriginalName();
-                $fileName = '/images/roomImages/' . uniqid('gymImage') . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('images/roomImages'), $fileName);
-                DB::table('roomimages')->insert([
-                    'room_id' => $gym->id,
-                    'image_url' => $fileName,
-                ]);
-            }
-        }
-        return redirect()->route('my-gym');
-    }
-
-    public function ownerEdit()
-    {
-        $gym = Room::where('owner_id', Auth::user()->id)->first();
-        $images = $gym->roomImages()->get();
-        return view('gym.edit', compact('gym', 'images'));
-    }
-
-    public function ownerUpdate(Request $request)
-    {
-        // dd($request->all());
-        //file upload
-
-        $gym = Room::where('owner_id', Auth::user()->id)->first();
-        $fileImages = $request->file('file');
-        if ($fileImages) {
-            foreach ($fileImages as $file) {
-                $fileName = $file->getClientOriginalName();
-                $fileName = '/images/roomImages/' . uniqid('gymImage') . '.' . $file->getClientOriginalExtension();
-                //if exist file name skip
-                if (DB::table('roomimages')->where('image_url', $fileName)->first()) {
-                    continue;
-                }
-                $file->move(public_path('images/roomImages'), $fileName);
-                DB::table('roomimages')->insert([
-                    'room_id' => $gym->id,
-                    'image_url' => $fileName,
-                ]);
-            }
-        }
-        $gym->name = $request->nameGym;
-        $gym->address = $request->address;
-        $gym->price = $request->price;
-        foreach ($request->services as $service) {
-            $gym[$service] = 1;
-        }
-        $gym->save();
-        User::where('id', Auth::user()->id)->update(['phone' => $request->phone]);
-        return redirect()->route('my-gym');
-    }
-
-    public function ownerShow()
-    {
-        $id = Auth::user()->id;
-
-        $gym = Room::findOrfail($id);
-
-        $poolAverageRating = 0;
-
-        if ($gym->pool == 1) {
-            $ratings = $gym->poolRatings;
-            $totalRating = 0;
-            if (isset($ratings)) {
-                $numRatings = count($ratings);
-
-                foreach ($ratings as $rating) {
-                    $totalRating += $rating->rating;
-                }
-
-                $poolAverageRating = $numRatings > 0 ? round($totalRating / $numRatings, 1) : 0;
-            }
+        .custom-select select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
         }
 
-        $owner = $gym->owner;
-
-        $gym_imgs = $gym->roomImages()->get()->take(3);
-
-        return view('gym.owner.show', compact('gym', 'gym_imgs', 'poolAverageRating', 'owner'));
-    }
-
-
-}
+        .custom-select::after {
+            content: '\25BC';
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+    </style>
+@endsection
