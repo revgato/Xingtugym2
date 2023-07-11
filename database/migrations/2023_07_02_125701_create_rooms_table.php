@@ -22,6 +22,7 @@ return new class extends Migration
             $table->foreignId('owner_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('numberOfUsers')->default(0);
             $table->float('rating')->nullable();
+            $table->float('pool_rating')->nullable();
             $table->boolean('pool')->default(false);
             $table->boolean('parking')->default(false);
             $table->boolean('sauna')->default(false);

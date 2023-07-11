@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('room_id')->constrained('rooms')->onDelete('cascade')->onUpdate('cascade');
             $table->string('review', 255);
             $table->float('rating');
+            $table->float('pool_rating')->nullable();
             $table->string('image', 255)->nullable();
             $table->integer('like')->default(0);
             $table->integer('dislike')->default(0);
