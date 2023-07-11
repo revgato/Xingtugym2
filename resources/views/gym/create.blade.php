@@ -25,27 +25,27 @@
 
             <div class="form-group">
                 <label for="name">Tên chủ phòng gym:</label>
-                <input type="text" id="nameOwner" name="nameOwner" class="form-control" autocomplete="off" >
+                <input type="text" id="nameOwner" name="nameOwner" class="form-control" autocomplete="off" required>
             </div>
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" class="form-control" autocomplete="off">
+                <input type="email" id="email" name="email" class="form-control" autocomplete="off" required>
             </div>
             <div class="form-group">
                 <label for="nameGym">Tên phòng gym:</label>
-                <input type="text" id="nameGym" name="nameGym" class="form-control" autocomplete="off">
+                <input type="text" id="nameGym" name="nameGym" class="form-control" autocomplete="off" required>
             </div>
             <div class="form-group">
                 <label for="address">Địa chỉ:</label>
-                <input type="text" id="address" name="address" class="form-control" autocomplete="off">
+                <input type="text" id="address" name="address" class="form-control" autocomplete="off" required>
             </div>
             <div class="form-group">
                 <label for="phone">Số điện thoại:</label>
-                <input type="text" id="phone" name="phone" class="form-control" autocomplete="off">
+                <input type="text" id="phone" name="phone" class="form-control" autocomplete="off" required>
             </div>
             <div class="form-group">
                 <label for="price">Mức giá 1 tháng:</label>
-                <input type="text" id="price" name="price" class="form-control" autocomplete="off">
+                <input type="text" id="price" name="price" class="form-control" autocomplete="off" required>
             </div>
             <div class="form-group">
                 <label for="services">Dịch vụ đi kèm:</label>
