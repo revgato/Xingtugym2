@@ -234,4 +234,16 @@ class GymController extends Controller
         return view('gym.owner.show', compact('gym', 'gym_imgs', 'poolAverageRating', 'owner'));
     }
 
+    public function destroy()
+    {
+        $gym = Room::where('owner_id', Auth::user()->id)->first();
+        $gym->delete();
+        return redirect()->route('my-gym');
+    }
+    public function updateStatus(){
+        $gym = Room::where('owner_id', Auth::user()->id)->first();
+        $gym->active = $gym->active == 1 ? 0 : 1;
+        $gym->save();
+        return redirect()->route('my-gym');
+    }
 }

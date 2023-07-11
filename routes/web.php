@@ -35,6 +35,8 @@ Route::prefix('/gym/owner')->group(function () {
     Route::post('/create', [App\Http\Controllers\GymController::class, 'store'])->name('gym.store');
     Route::get('/update', [App\Http\Controllers\GymController::class, 'edit'])->name('gym.edit');
     Route::post('/update', [App\Http\Controllers\GymController::class, 'update'])->name('gym.update');
+    Route::get('/delete', [App\Http\Controllers\GymController::class, 'destroy'])->name('gym.destroy');
+    Route::get('/update-status', [App\Http\Controllers\GymController::class, 'updateStatus'])->name('gym.update-status');
 });
 
 Route::prefix('/gym')->group(function () {
