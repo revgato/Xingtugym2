@@ -36,7 +36,7 @@
             <h4>ジムルーム情報</h4>
             <div class="gym-rating-group d-flex justify-content-between">
                 <div class="gym-review d-flex justify-content-between" style="width: 250px">
-                    <p class="custom-space-text">ジム評価</p>
+                    <p class="custom-space-text text-bold">ジム評価</p>
                     <div class="gym-rating d-flex">
                         <p class="custom-space-text" style="font-size: 1.5rem">{{$gym->rating}}</p>
                         <i class="fa-solid fa-star" style="line-height: 36px; color: #cccc04; font-size: 1.5rem"></i>
@@ -45,7 +45,7 @@
 
                 @if($gym->pool == 1)
                 <div class="pool-review d-flex justify-content-between" style="width: 250px">
-                    <p class="custom-space-text mr-4">プール評価</p>
+                    <p class="custom-space-text mr-4 text-bold">プール評価</p>
                     <div class="pool-rating d-flex">
                         <p class="custom-space-text" style="font-size: 1.5rem">{{$gym->pool_rating}}</p>
                         <i class="fa-solid fa-star" style="line-height: 36px; color: #cccc04; font-size: 1.5rem"></i>
