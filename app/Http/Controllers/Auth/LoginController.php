@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -30,7 +31,13 @@ class LoginController extends Controller
 
     protected function authenticated()
     {
-        // if(Auth::user()->role == 1){
+        if (Auth::user()->role == 'gym-owner') {
+            if (Room::where('ownerid', auth()->user()->id)->exists()) {
+                return redirect()->route('gym.owner.show')->with('success', 'Welcome to create gym');
+            } else {
+                return redirect()->route('gym.owner.show')->with('success', 'Welcome to gym owner dashboard');
+            }
+        }
         //     return redirect()->route('admin.dashboard')->with('success', 'Welcome to admin dashboard');
         // }
         // else{

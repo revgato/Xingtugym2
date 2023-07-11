@@ -28,6 +28,18 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // group gym
 Route::get('/my-gym', [App\Http\Controllers\GymController::class, 'myGym'])->name('my-gym');
+
+Route::group(['middleware' => ['auth', 'gymRedirect']], function () {
+    // Các route của chủ phòng gym
+    Route::prefix('/gym')->group(function () {
+        Route::get('owner/create', [App\Http\Controllers\GymController::class, 'ownerCreate'])->name('gym.owner.create');
+        Route::post('owner/create', [App\Http\Controllers\GymController::class, 'ownerStore'])->name('gym.owner.store');
+        Route::get('owner/update', [App\Http\Controllers\GymController::class, 'ownerEdit'])->name('gym.owner.edit');
+        Route::post('owner/update', [App\Http\Controllers\GymController::class, 'ownerUpdate'])->name('gym.owner.update');
+        Route::get('owner/{id}', [App\Http\Controllers\GymController::class, 'ownerShow'])->name('gym.owner.show');
+    });
+});
+
 Route::prefix('/gym')->group(function () {
     Route::get('/create', [App\Http\Controllers\GymController::class, 'create'])->name('gym.create');
     Route::post('/create', [App\Http\Controllers\GymController::class, 'store'])->name('gym.store');
