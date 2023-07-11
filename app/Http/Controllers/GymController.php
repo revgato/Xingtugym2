@@ -168,7 +168,7 @@ class GymController extends Controller
 //        var_dump('service: ' . $service);
 
 
-        $query = Room::query();
+        $query = Room::query()->orderBy('rating', 'desc');
 
         if ($name) {
             $query->where('name', 'LIKE', '%' . $name . '%');
@@ -194,7 +194,7 @@ class GymController extends Controller
 
         if ($service) {
             if ($service == 1) {
-                $query->where('pool', 1);
+                $query->where('pool', 1)->orderBy();
             } else {
                 if ($service == 2) {
                     $query->where('sauna', 1);
