@@ -26,7 +26,7 @@
         <!-- Avatar and Name -->
         <div class="nav-user mx-3">
             <span class="username mx-3" style="font-weight: 600px;">{{ Auth::user()->name }}</span>
-            <img src="/images/avatar/avatar1.webp" class="rounded-circle shadow-4" style="width: 50px;" alt="Avatar" />
+            <img src="{{ Auth::user()->avatar }}" class="rounded-circle shadow-4" style="width: 50px;" alt="Avatar" />
         </div>
         <!-- Collapse button -->
         <button class="btn btn-link" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation" onclick="Nav()" style="z-index: 2">
