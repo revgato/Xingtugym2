@@ -9,15 +9,13 @@
             </div>
             <div class="drag-area">
                 <span class="visible">
+                    <div class="container-image"></div>
                     Kéo và thả hình ảnh tại đây hoặc
                     <span class="select" role="button">Tải lên</span>
                 </span>
                 <span class="on-drop">Thả hình ảnh tại đây</span>
                 <input name="file[]" type="file" class="file" multiple />
             </div>
-
-            <!-- IMAGE PREVIEW CONTAINER -->
-            <div class="container-image"></div>
         </div>
         <div class="register-form">
             <!-- Bên chứa trường input -->
@@ -162,7 +160,7 @@
 
     .card-image .drag-area {
         width: 100%;
-        height: 160px;
+        height: 180px;
         border-radius: 5px;
         border: 2px dashed #d5d5e1;
         color: #c8c9dd;

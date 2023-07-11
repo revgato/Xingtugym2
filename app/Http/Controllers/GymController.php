@@ -100,6 +100,16 @@ class GymController extends Controller
         $gym = Room::where('owner_id', Auth::user()->id)->first();
         $fileImages = $request->file('file');
         if ($fileImages) {
+            // Get path and delete all file images from roomimages table with room_id
+            $roomImages = DB::table('roomimages')->where('room_id', $gym->id);
+            foreach ($roomImages->get() as $roomImage) {
+                $path = public_path() . $roomImage->image_url;
+                if (file_exists($path)) {
+                    unlink($path);
+                }
+            }
+            $roomImages->delete();
+            
             foreach ($fileImages as $file) {
                 $fileName = $file->getClientOriginalName();
                 $fileName = '/images/roomImages/' . uniqid('gymImage') . '.' . $file->getClientOriginalExtension();
@@ -114,6 +124,8 @@ class GymController extends Controller
                 ]);
             }
         }
+        $gym->nameOwner = $request->name;
+        $gym->email = $request->email;
         $gym->name = $request->nameGym;
         $gym->address = $request->address;
         $gym->price = $request->price;

@@ -2,13 +2,14 @@
 @section('content')
 <div class="container mt-5">
     <div class="row">
+        <div id="lens"></div>
         <div id="gym-slider mt-4" class="col-lg-5">
             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
 
                     @foreach($gym_imgs as $index => $gym_img)
                     <div class="carousel-item <?php echo ($index === 0) ? 'active' : ''; ?>">
-                        <img src="{{$gym_img->image_url}}" class="d-block w-100" alt="Image {{$index}}">
+                        <img src="{{$gym_img->image_url}}" class="d-block w-100 carousel-img" alt="Image {{$index}}">
                     </div>
                     @endforeach
 
@@ -32,6 +33,7 @@
                 @endforeach
             </div>
         </div>
+        <div id="result"></div>
         <div class="gym-info col-lg-7 padding-left-modify">
             <h4>ジムルーム情報</h4>
             <div class="gym-rating-group d-flex justify-content-between">
@@ -190,7 +192,13 @@
     .btn-green-color:hover {
         background-color: #99f0f1;
     }
+
+    #lens { background-color: rgba( 233, 233, 233, 0.4 ) }
+    #lens, #result { position: absolute; display: none; z-index: 1; }
+    #lens, .carousel-item, .image-box-item, #result { border: solid var(--light-grey-2) 1px; }
 </style>
+
+<script type="text/javascript" src="{{asset('js/script.js')}}"></script>
 
 <script>
     function redirectUpdatePage() {
