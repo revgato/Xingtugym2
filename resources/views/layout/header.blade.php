@@ -8,58 +8,136 @@
         </a>
     </div>
     @guest
-        @if(Route::has('login'))
-            <div class="d-flex align-items-center ml-auto order-1">
-                <div class=" order-1">
-                    <a class="nav-link mx-4" href="{{ route('login') }}">ログイン</a>
-                </div>
-                @endif
-                @if(Route::has('signup'))
-                    <div class=" order-2">
-                        <a class="btn btn-primary  mx-4" href="{{ route('signup') }}">サインアップ</a>
-                    </div>
-            </div>
-        @endif
-    @else
-        <!-- Avatar and Name -->
-        <div class="d-flex align-items-center ml-auto order-1">
-            <!-- Avatar and Name -->
-            <div class="nav-user mx-3">
-                <span class="username mx-3" style="font-weight: 600px;">{{ Auth::user()->name }}</span>
-                <img src="/images/avatar/avatar1.webp" class="rounded-circle shadow-4" style="width: 50px;" alt="Avatar" />
-            </div>
-            <!-- Collapse button -->
-            <button class="btn btn-link" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation" onclick="Nav()" style="z-index: 2">
-                <div class="animated-icon"><span></span><span></span><span></span></div>
-            </button>
+    @if(Route::has('login'))
+    <div class="d-flex align-items-center ml-auto order-1">
+        <div class=" order-1">
+            <a class="nav-link mx-4" href="{{ route('login') }}">ログイン</a>
         </div>
-        @if(Auth::user()->role == 'user')
-            <div class="row">
-                <div class="col-1 d-flex justify-content-center">
-                    <div id="mySidenav" class="sidenav">
-                        <a href="{{route('gym.index')}}">ジ‐ム検索</a>
-                        <a href="#">Services</a>
-                        <a href="#">Clients</a>
-                        <a href="{{ route('logout') }}">ログアウト</a>
-                    </div>
-                </div>
-            </div>
         @endif
-        @if(Auth::user()->role == 'gym-owner')
-            <div class="row">
-                <div class="col-1 d-flex justify-content-center">
-                    <div id="mySidenav" class="sidenav">
-                        <a href="{{ route('gym.owner.show') }}">私のジーム</a>
-                        <a href="{{ route('logout') }}">ログアウト</a>
-                    </div>
-                </div>
+        @if(Route::has('signup'))
+        <div class=" order-2">
+            <a class="btn btn-primary  mx-4" href="{{ route('signup') }}">サインアップ</a>
+        </div>
+    </div>
+    @endif
+    @else
+    <!-- Avatar and Name -->
+    <div class="d-flex align-items-center ml-auto order-1">
+        <!-- Avatar and Name -->
+        <div class="nav-user mx-3">
+            <span class="username mx-3" style="font-weight: 600px;">{{ Auth::user()->name }}</span>
+            <img src="{{ Auth::user()->avatar }}" class="rounded-circle shadow-4" style="width: 50px;" alt="Avatar" onclick="toggleMenu()" />
+        </div>
+        <div class="sub-menu-wrap" id="subMenu">
+            <div class="sub-menu">
+                <a href="#" class="sub-menu-link">
+                    <i class="fa-solid fa-user" style="font-size: 20px; margin-right: 6px"></i>
+                    <span class="">プロファイル</span>
+                </a>
+                <hr />
+                <a href="#" class="sub-menu-link">
+                    <i class="fa-solid fa-lock" style="font-size: 20px; margin-right: 6px"></i>
+                    <p>パスワードを変更する</p>
+                    <span style="font-size: 20px; transform: 0.5s">></span>
+                </a>
+                <a href="{{ route('logout') }}" class="sub-menu-link">
+                    <i class="fa-solid fa-right-from-bracket" style="font-size: 20px; margin-right: 6px"></i>
+                    <span class="">ログアウト</span>
+                </a>
             </div>
-        @endif
+        </div>
+        <!-- Collapse button -->
+        <button class="btn btn-link" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation" onclick="Nav()" style="z-index: 2">
+            <div class="animated-icon"><span></span><span></span><span></span></div>
+        </button>
+    </div>
+    @if(Auth::user()->role == 'user')
+    <div class="row">
+        <div class="col-1 d-flex justify-content-center">
+            <div id="mySidenav" class="sidenav">
+                <a href="#">About</a>
+                <a href="#">Services</a>
+                <a href="#">Clients</a>
+                <a href="{{ route('logout') }}">ログアウト</a>
+            </div>
+        </div>
+    </div>
+    @endif
+    @if(Auth::user()->role == 'gym-owner')
+    <div class="row">
+        <div class="col-1 d-flex justify-content-center">
+            <div id="mySidenav" class="sidenav">
+                <a href="{{ route('my-gym') }}">私のジム</a>
+            </div>
+        </div>
+    </div>
+    @endif
     @endguest
 </nav>
 <!--/.Navbar-->
 
 <style>
+    .sub-menu-wrap {
+        position: absolute;
+        top: 100%;
+        right: 4%;
+        width: 250px;
+        max-height: 0px;
+        overflow: hidden;
+        transition: max-height 0.5s;
+    }
+
+    .sub-menu-wrap.open-menu {
+        max-height: 400px;
+        z-index: 999;
+    }
+
+    .sub-menu {
+        background: #fff;
+        padding: 20px;
+        margin: 10px;
+        border: 1px solid #888888;
+        margin: 0 0 0 0;
+        border-radius: 10px;
+    }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .sub-menu hr {
+        height: 1;
+        width: 100%;
+        color: black;
+        margin: 15px 0 10px;
+    }
+
+    .sub-menu-link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: black;
+        margin: 12px 0;
+    }
+
+    .sub-menu p {
+        display: flex;
+        width: 100%;
+        margin-bottom: 0;
+        align-items: center;
+    }
+
+    .sub-menu-link:hover span {
+        transform: translateX(5px);
+    }
+
+    .sub-menu-link:hover p {
+        font-weight: 600;
+    }
+
+
     .brand-name {
         font-family: 'Architects Daughter';
         font-size: 28px;
@@ -204,5 +282,10 @@
             document.getElementById("mySidenav").style.width = "0px";
             $('.animated-icon').toggleClass('open');
         }
+    }
+    let subMenu = document.getElementById("subMenu");
+
+    function toggleMenu() {
+        subMenu.classList.toggle("open-menu");
     }
 </script>
