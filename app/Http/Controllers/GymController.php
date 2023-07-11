@@ -156,7 +156,7 @@ class GymController extends Controller
         $price = $request->input('inputPrice') ? $request->input('inputPrice') : null;
         $service = $request->input('inputService') ? $request->input('inputService') : null;
 
-        $query = Room::query();
+        $query = Room::query()->orderBy('rating', 'desc');
 
         if ($name) {
             $query->where('name', 'LIKE', '%' . $name . '%');
@@ -182,7 +182,7 @@ class GymController extends Controller
 
         if ($service) {
             if ($service == 1) {
-                $query->where('pool', 1);
+                $query->where('pool', 1)->orderBy('pool_rating', 'desc');
             } else {
                 if ($service == 2) {
                     $query->where('sauna', 1);

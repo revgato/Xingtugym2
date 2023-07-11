@@ -81,7 +81,7 @@
                         <div class="pool-review d-flex justify-content-between" style="width: 250px">
                             <p class="custom-space-text mr-4">プール評価</p>
                             <div class="pool-rating d-flex">
-                                <p class="custom-space-text" style="font-size: 1.5rem">{{$poolAverageRating}}</p>
+                                <p class="custom-space-text" style="font-size: 1.5rem">{{$gym->pool_rating}}</p>
                                 <i class="fa-solid fa-star"
                                    style="line-height: 36px; color: #cccc04; font-size: 1.5rem"></i>
                             </div>
