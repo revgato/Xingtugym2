@@ -49,7 +49,7 @@
             <div class="row">
                 <div class="col-1 d-flex justify-content-center">
                     <div id="mySidenav" class="sidenav">
-                        <a href="{{ route('my-gym') }}">私のジーム</a>
+                        <a href="{{ route('gym.owner.show') }}">私のジーム</a>
                         <a href="{{ route('logout') }}">ログアウト</a>
                     </div>
                 </div>

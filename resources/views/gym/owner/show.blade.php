@@ -114,7 +114,7 @@
 
         <div class="row d-flex justify-content-around custom-space-top-btn">
             <button type="button" class="btn btn-danger col-lg-2">Xóa</button>
-            <button type="button" class="btn btn-primary col-lg-2 btn-green-color">Chỉnh sửa</button>
+            <button type="button" class="btn btn-primary col-lg-2 btn-green-color" onclick="redirectUpdatePage()">Chỉnh sửa</button>
             <button type="button" class="btn btn-primary col-lg-2 btn-green-color">Tạm ngừng hoạt động</button>
         </div>
 
@@ -203,5 +203,11 @@
             background-color: #99f0f1;
         }
     </style>
+
+    <script>
+        function redirectUpdatePage() {
+            window.location.href = "{{route('gym.edit')}}"
+        }
+    </script>
 @endsection
 
