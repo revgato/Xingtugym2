@@ -18,11 +18,11 @@
                     <ul class="list-unstyled mb-0">
                         <li>
                             <i class="fa-solid fa-phone "></i>
-                            <a href="#!" class="text-dark text-decoration-none mx-auto">+084123123123</a>
+                            <a href="tel:0841231231" class="text-dark text-decoration-none mx-auto">0841231231</a>
                         </li>
                         <li>
                             <i class="fa-sharp fa-solid fa-envelope "></i>
-                            <a href="#!" class="text-dark text-decoration-none mx-auto">XingtuGym@gmail.com</a>
+                            <a href="mailto:XingtuGym@gmail.com" class="text-dark text-decoration-none mx-auto">XingtuGym@gmail.com</a>
                         </li>
                     </ul>
                 </div>
