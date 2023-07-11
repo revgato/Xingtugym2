@@ -43,4 +43,8 @@ class User extends Authenticatable
     protected $columns = [
         'name', 'address', 'phone', 'email', 'password', 'avatar', 'role'
     ];
+    public function room()
+    {
+        return $this->hasMany(Room::class, 'owner_id', 'id');
+    }
 }
