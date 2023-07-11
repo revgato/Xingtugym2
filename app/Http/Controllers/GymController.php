@@ -18,7 +18,7 @@ class GymController extends Controller
         if (!$gym) {
             return redirect()->route('gym.create');
         } else {
-            return redirect()->route('gym.edit');
+            return redirect()->route('gym.owner.show');
         }
     }
 
@@ -210,12 +210,9 @@ class GymController extends Controller
 
     public function ownerShow()
     {
-        $id = Auth::user()->id;
-
-        $gym = Room::findOrfail($id);
-
+        $user = Auth::user();
+        $gym = $user->room->first();
         $poolAverageRating = 0;
-
         if ($gym->pool == 1) {
             $ratings = $gym->poolRatings;
             $totalRating = 0;

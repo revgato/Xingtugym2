@@ -29,18 +29,16 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/my-gym', [App\Http\Controllers\GymController::class, 'myGym'])->name('my-gym');
 
 // Các route của chủ phòng gym
-Route::prefix('/gym')->group(function () {
-    Route::get('owner', [App\Http\Controllers\GymController::class, 'ownerShow'])->name('gym.owner.show');
-});
-
-
-Route::prefix('/gym')->group(function () {
+Route::prefix('/gym/owner')->group(function () {
+    Route::get('/', [App\Http\Controllers\GymController::class, 'ownerShow'])->name('gym.owner.show');
     Route::get('/create', [App\Http\Controllers\GymController::class, 'create'])->name('gym.create');
     Route::post('/create', [App\Http\Controllers\GymController::class, 'store'])->name('gym.store');
     Route::get('/update', [App\Http\Controllers\GymController::class, 'edit'])->name('gym.edit');
     Route::post('/update', [App\Http\Controllers\GymController::class, 'update'])->name('gym.update');
+});
+
+Route::prefix('/gym')->group(function () {
     Route::get('/search', [App\Http\Controllers\GymController::class, 'search'])->name('gym.search');
     Route::get('/', [App\Http\Controllers\GymController::class, 'index'])->name('gym.index');
     Route::get('/{id}', [App\Http\Controllers\GymController::class, 'show'])->name('gym.show');
 });
-
