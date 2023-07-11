@@ -24,27 +24,27 @@
             <h1 style="color: #5256ad;">Chỉnh sửa thông tin phòng gym</h1>
             <div class="form-group">
                 <label for="name">Tên chủ phòng gym:</label>
-                <input type="text" id="name" name="name" class="form-control" autocomplete="off" value="{{ $gym->nameOwner }}">
+                <input type="text" id="name" name="name" class="form-control" autocomplete="off" value="{{ $gym->nameOwner }}" required>
             </div>
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" class="form-control" autocomplete="off" value="{{ $gym->email }}">
+                <input type="email" id="email" name="email" class="form-control" autocomplete="off" value="{{ $gym->email }}" required>
             </div>
             <div class="form-group">
                 <label for="nameGym">Tên phòng gym:</label>
-                <input type="text" id="nameGym" name="nameGym" class="form-control" autocomplete="off" value="{{ $gym->name }}">
+                <input type="text" id="nameGym" name="nameGym" class="form-control" autocomplete="off" value="{{ $gym->name }}" required>
             </div>
             <div class="form-group">
                 <label for="address">Địa chỉ:</label>
-                <input type="text" id="address" name="address" class="form-control" autocomplete="off" value="{{ $gym->address }}">
+                <input type="text" id="address" name="address" class="form-control" autocomplete="off" value="{{ $gym->address }}" required>
             </div>
             <div class="form-group">
                 <label for="phone">Số điện thoại:</label>
-                <input type="text" id="phone" name="phone" class="form-control" autocomplete="off" value="{{ $gym->phone }}">
+                <input type="text" id="phone" name="phone" class="form-control" autocomplete="off" value="{{ $gym->phone }}" required>
             </div>
             <div class="form-group">
                 <label for="price">Mức giá 1 tháng:</label>
-                <input type="text" id="price" name="price" class="form-control" autocomplete="off" value="{{ $gym->price }}">
+                <input type="text" id="price" name="price" class="form-control" autocomplete="off" value="{{ $gym->price }}" required>
             </div>
             <div class="form-group">
                 <label for="services">Dịch vụ đi kèm:</label>
