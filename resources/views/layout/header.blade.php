@@ -8,53 +8,53 @@
         </a>
     </div>
     @guest
-    @if(Route::has('login'))
-    <div class="d-flex align-items-center ml-auto order-1">
-        <div class=" order-1">
-            <a class="nav-link mx-4" href="{{ route('login') }}">ログイン</a>
-        </div>
+        @if(Route::has('login'))
+            <div class="d-flex align-items-center ml-auto order-1">
+                <div class=" order-1">
+                    <a class="nav-link mx-4" href="{{ route('login') }}">ログイン</a>
+                </div>
+                @endif
+                @if(Route::has('signup'))
+                    <div class=" order-2">
+                        <a class="btn btn-primary  mx-4" href="{{ route('signup') }}">サインアップ</a>
+                    </div>
+            </div>
         @endif
-        @if(Route::has('signup'))
-        <div class=" order-2">
-            <a class="btn btn-primary  mx-4" href="{{ route('signup') }}">サインアップ</a>
-        </div>
-    </div>
-    @endif
     @else
-    <!-- Avatar and Name -->
-    <div class="d-flex align-items-center ml-auto order-1">
         <!-- Avatar and Name -->
-        <div class="nav-user mx-3">
-            <span class="username mx-3" style="font-weight: 600px;">{{ Auth::user()->name }}</span>
-            <img src="/images/avatar/avatar1.webp" class="rounded-circle shadow-4" style="width: 50px;" alt="Avatar" />
-        </div>
-        <!-- Collapse button -->
-        <button class="btn btn-link" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation" onclick="Nav()" style="z-index: 2">
-            <div class="animated-icon"><span></span><span></span><span></span></div>
-        </button>
-    </div>
-    @if(Auth::user()->role == 'user')
-    <div class="row">
-        <div class="col-1 d-flex justify-content-center">
-            <div id="mySidenav" class="sidenav">
-                <a href="#">About</a>
-                <a href="#">Services</a>
-                <a href="#">Clients</a>
-                <a href="{{ route('logout') }}">ログアウト</a>
+        <div class="d-flex align-items-center ml-auto order-1">
+            <!-- Avatar and Name -->
+            <div class="nav-user mx-3">
+                <span class="username mx-3" style="font-weight: 600px;">{{ Auth::user()->name }}</span>
+                <img src="/images/avatar/avatar1.webp" class="rounded-circle shadow-4" style="width: 50px;" alt="Avatar" />
             </div>
+            <!-- Collapse button -->
+            <button class="btn btn-link" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation" onclick="Nav()" style="z-index: 2">
+                <div class="animated-icon"><span></span><span></span><span></span></div>
+            </button>
         </div>
-    </div>
-    @endif
-    @if(Auth::user()->role == 'gym-owner')
-    <div class="row">
-        <div class="col-1 d-flex justify-content-center">
-            <div id="mySidenav" class="sidenav">
-                <a href="{{ route('my-gym') }}">私のジーム</a>
-                <a href="{{ route('logout') }}">ログアウト</a>
+        @if(Auth::user()->role == 'user')
+            <div class="row">
+                <div class="col-1 d-flex justify-content-center">
+                    <div id="mySidenav" class="sidenav">
+                        <a href="{{route('gym.index')}}">ジ‐ム検索</a>
+                        <a href="#">Services</a>
+                        <a href="#">Clients</a>
+                        <a href="{{ route('logout') }}">ログアウト</a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    @endif
+        @endif
+        @if(Auth::user()->role == 'gym-owner')
+            <div class="row">
+                <div class="col-1 d-flex justify-content-center">
+                    <div id="mySidenav" class="sidenav">
+                        <a href="{{ route('my-gym') }}">私のジーム</a>
+                        <a href="{{ route('logout') }}">ログアウト</a>
+                    </div>
+                </div>
+            </div>
+        @endif
     @endguest
 </nav>
 <!--/.Navbar-->
