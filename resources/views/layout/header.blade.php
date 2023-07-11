@@ -26,7 +26,28 @@
         <!-- Avatar and Name -->
         <div class="nav-user mx-3">
             <span class="username mx-3" style="font-weight: 600px;">{{ Auth::user()->name }}</span>
-            <img src="{{ Auth::user()->avatar }}" class="rounded-circle shadow-4" style="width: 50px;" alt="Avatar" />
+            <img src="{{ Auth::user()->avatar }}" class="rounded-circle shadow-4" style="width: 50px;" alt="Avatar" onclick="toggleMenu()" />
+        </div>
+        <div class="sub-menu-wrap" id="subMenu">
+            <div class="sub-menu">
+                <div class="user-info">
+                    <img src="{{ Auth::user()->avatar }}" class="rounded-circle shadow-4" style="width: 50px" alt="Avatar" />
+                    <span class="username mx-3">{{ Auth::user()->name }}</span>
+                </div>
+                <hr />
+                <a href="#" class="sub-menu-link" style="justify-content: center">
+                    <span class="">Profile</span>
+                </a>
+                <a href="#" class="sub-menu-link">
+                    <i class="fa-solid fa-lock" style="font-size: 20px; margin-right: 6px"></i>
+                    <p>Change pass</p>
+                    <span style="font-size: 20px; transform: 0.5s">></span>
+                </a>
+                <a href="#" class="sub-menu-link">
+                    <i class="fa-solid fa-right-from-bracket" style="font-size: 20px; margin-right: 6px"></i>
+                    <span class="">Log out</span>
+                </a>
+            </div>
         </div>
         <!-- Collapse button -->
         <button class="btn btn-link" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation" onclick="Nav()" style="z-index: 2">
@@ -60,6 +81,64 @@
 <!--/.Navbar-->
 
 <style>
+    .sub-menu-wrap {
+        position: absolute;
+        top: 100%;
+        right: 0%;
+        width: 250px;
+        max-height: 0px;
+        overflow: hidden;
+        transition: max-height 0.5s;
+    }
+
+    .sub-menu-wrap.open-menu {
+        max-height: 400px;
+        z-index: 999
+    }
+
+    .sub-menu {
+        background: #fff;
+        padding: 20px;
+        margin: 10px;
+        border: 1px solid black;
+    }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .sub-menu hr {
+        height: 1;
+        width: 100%;
+        color: black;
+        margin: 15px 0 10px;
+    }
+
+    .sub-menu-link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: black;
+        margin: 12px 0;
+    }
+
+    .sub-menu p {
+        display: flex;
+        width: 100%;
+        margin-bottom: 0;
+        align-items: center;
+    }
+
+    .sub-menu-link:hover span {
+        transform: translateX(5px);
+    }
+
+    .sub-menu-link:hover p {
+        font-weight: 600;
+    }
+
     .brand-name {
         font-family: 'Architects Daughter';
         font-size: 28px;
@@ -204,5 +283,10 @@
             document.getElementById("mySidenav").style.width = "0px";
             $('.animated-icon').toggleClass('open');
         }
+    }
+    let subMenu = document.getElementById("subMenu");
+
+    function toggleMenu() {
+        subMenu.classList.toggle("open-menu");
     }
 </script>
