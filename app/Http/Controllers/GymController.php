@@ -168,7 +168,7 @@ class GymController extends Controller
 //        var_dump('service: ' . $service);
 
 
-        $query = Room::query();
+        $query = Room::query()->orderBy('rating', 'desc');
 
         if ($name) {
             $query->where('name', 'LIKE', '%' . $name . '%');
@@ -247,6 +247,15 @@ class GymController extends Controller
         $gym_imgs = $gym->roomImages()->get()->take(3);
 
         return view('gym.owner.show', compact('gym', 'gym_imgs', 'poolAverageRating', 'owner'));
+    }
+
+    // fake rating
+    public function rating(Request $request)
+    {
+        $gym = Room::findOrfail($request->id);
+        $gym->fake_rating = $request->rating;
+        $gym->save();
+        return redirect()->route('my-gym');
     }
 
 }
