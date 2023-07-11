@@ -51,7 +51,7 @@ class GymController extends Controller
         //if gym already exist
         $gym = Room::where('owner_id', Auth::user()->id)->first();
         if ($gym) {
-            return redirect()->route('gym.edit');
+            return redirect()->route('gym.owner.show');
         }
         $gym = [
             'owner_id' => Auth::user()->id,
@@ -62,6 +62,7 @@ class GymController extends Controller
             'address' => $request->address,
             'price' => $request->price,
         ];
+        if($request->has('services'))
         foreach ($request->services as $service) {
             $gym[$service] = 1;
         }
@@ -74,8 +75,8 @@ class GymController extends Controller
         if ($fileImages) {
             foreach ($fileImages as $file) {
                 $fileName = $file->getClientOriginalName();
-                $fileName = '/images/roomImages/' . uniqid('gymImage') . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('images/roomImages'), $fileName);
+                $fileName = '/images/roomImages/' . uniqid('gym') . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('/images/roomImages'), $fileName);
                 DB::table('roomimages')->insert([
                     'room_id' => $gym->id,
                     'image_url' => $fileName,
@@ -246,4 +247,16 @@ class GymController extends Controller
         return view('gym.owner.show', compact('gym', 'gym_imgs', 'poolAverageRating', 'owner'));
     }
 
+    public function destroy()
+    {
+        $gym = Room::where('owner_id', Auth::user()->id)->first();
+        $gym->delete();
+        return redirect()->route('my-gym');
+    }
+    public function updateStatus(){
+        $gym = Room::where('owner_id', Auth::user()->id)->first();
+        $gym->active = $gym->active == 1 ? 0 : 1;
+        $gym->save();
+        return redirect()->route('my-gym');
+    }
 }

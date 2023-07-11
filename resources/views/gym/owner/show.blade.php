@@ -98,9 +98,13 @@
     </div>
 
     <div class="row d-flex justify-content-around custom-space-top-btn">
-        <button type="button" class="btn btn-danger col-lg-2">Xóa</button>
+        <button type="button" class="btn btn-danger col-lg-2" onclick="window.location='{{ route('gym.destroy') }}'">Xóa</button>
         <button type="button" class="btn btn-primary col-lg-2 btn-green-color" onclick="redirectUpdatePage()">Chỉnh sửa</button>
-        <button type="button" class="btn btn-primary col-lg-2 btn-green-color">Tạm ngừng hoạt động</button>
+        @if($gym->active == 1)
+        <button type="button" class="btn btn-primary col-lg-2 btn-green-color" onclick="window.location='{{ route('gym.update-status') }}'">Tạm ngừng hoạt động</button>
+        @else
+        <button type="button" class="btn btn-primary col-lg-2 btn-green-color" onclick="window.location='{{ route('gym.update-status') }}'">Mở lại</button>
+        @endif
     </div>
 
 </div>
