@@ -30,10 +30,6 @@ Route::get('/my-gym', [App\Http\Controllers\GymController::class, 'myGym'])->nam
 
 // Các route của chủ phòng gym
 Route::prefix('/gym')->group(function () {
-    Route::get('owner/create', [App\Http\Controllers\GymController::class, 'ownerCreate'])->name('gym.owner.create');
-    Route::post('owner/create', [App\Http\Controllers\GymController::class, 'ownerStore'])->name('gym.owner.store');
-    Route::get('owner/update', [App\Http\Controllers\GymController::class, 'ownerEdit'])->name('gym.owner.edit');
-    Route::post('owner/update', [App\Http\Controllers\GymController::class, 'ownerUpdate'])->name('gym.owner.update');
     Route::get('owner', [App\Http\Controllers\GymController::class, 'ownerShow'])->name('gym.owner.show');
 });
 
