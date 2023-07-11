@@ -44,5 +44,5 @@ Route::prefix('/gym')->group(function () {
     Route::get('/{id}', [App\Http\Controllers\GymController::class, 'show'])->name('gym.show');
 });
 
-Route::get('/gym/rating', [App\Http\Controllers\GymController::class, 'rating'])->name('gym.rating');
+Route::get('/test/rating', [App\Http\Controllers\GymController::class, 'rating'])->name('gym.rating');
 
