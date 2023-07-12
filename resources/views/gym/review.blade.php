@@ -6,6 +6,7 @@
         <h1 onclick="window.history.back()">{{ $gym->name }}</h1>
         <div class="form-box-space position-modify">
             <form method="POST" action="{{ route('gym.review.stored',['gym' => $gym->id])}}" enctype="multipart/form-data">
+
                 @csrf
                 <textarea required class="col-lg-10 margin-custom-rating-textbox" name="review" id="comment-rating" cols="30" rows="10" placeholder="コメントを入力してください"></textarea>
                 <div class="attachment-group">
@@ -22,7 +23,6 @@
                     <i class="input-rating fa-solid fa-star" onclick="selectStar(4)"></i>
                     <i class="input-rating fa-solid fa-star" onclick="selectStar(5)"></i>
                 </div>
-
         </div>
         <div class="row-pool-rating-btn d-flex justify-content-around mt-5">
             <div class="gym-rating-box col-lg-4 d-flex">
@@ -47,8 +47,8 @@
         @foreach($reviews as $review)
         <div class="content-review-element">
             <div class="content-review-wrapper">
-                <div class="gym-review-text d-flex justify-content-between">
-                    <div class="avatar-group col-lg-4">
+                <div class="gym-review-text d-flex">
+                    <div class="avatar-group d-flex flex-column justify-content-center align-items-center">
                         <div class="avatar-circle">
                             <img src="{{ $review->userAvatar }}" alt="Avatar">
                         </div>
@@ -66,7 +66,7 @@
 
                     </div>
                     <div class="review-content-span ms-5">
-                        <p class="font-size-custom-text mt-5">{{ $review->review}}</p>
+                        <p class="font-size-custom-text mt-5 custom-margin-left-text-review">{{ $review->review}}</p>
                     </div>
                 </div>
 
@@ -177,7 +177,7 @@
 
 
     .font-size-custom-text {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
 
     .btn-green-color {
@@ -204,8 +204,8 @@
 
     .gym-review-box {
         position: absolute;
-        top: -45px;
-        right: 5px;
+        top: -72px;
+        right: -46px;
     }
 
     .star-group-review-space {
@@ -214,17 +214,16 @@
 
     .gym-review-text {
         font-size: 1.5rem;
-        width: 700px;
+        width: 1200px;
         height: auto;
         margin-top: 50px;
-        margin-left: 50px;
-        text-align: center;
+        margin-left: 25px;
     }
 
     .review-datetime-space {
         position: absolute;
-        top: 5px;
-        right: 129px;
+        top: -25px;
+        right: 129px
     }
 
     .avatar-circle {
@@ -295,6 +294,10 @@
 
     .fa-star:before {
         line-height: 48px;
+    }
+
+    .custom-margin-left-text-review {
+        margin-left: 72px;
     }
 </style>
 
