@@ -56,9 +56,6 @@
         <div class="col-1 d-flex justify-content-center">
             <div id="mySidenav" class="sidenav">
                 <a href="{{route('gym.index')}}">ジム検索</a>
-                <a href="#">Services</a>
-                <a href="#">Clients</a>
-                <a href="{{ route('logout') }}">ログアウト</a>
             </div>
         </div>
     </div>

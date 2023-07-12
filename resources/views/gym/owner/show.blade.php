@@ -104,7 +104,7 @@
                     @endif
                 </p>
             </div>
-            <button type="button" class="btn btn-primary custom-button-review">Hiển thị bình luận</button>
+            <button type="button" class="btn btn-primary custom-button-review" onclick="window.location='{{ route('gym.review', ['gym' => $gym->id]) }}'">Hiển thị bình luận</button>
         </div>
     </div>
 

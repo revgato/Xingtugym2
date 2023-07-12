@@ -24,8 +24,8 @@ class GymController extends Controller
 
     public function index()
     {
-        // Lấy danh sách phòng gym phân trang
-        $gymRooms = Room::orderByDesc('rating')->paginate(10);
+        // Lấy danh sách phòng gym phân trang với active = 1
+        $gymRooms = Room::where('active', 1)->orderByDesc('rating')->paginate(10);
 
         // Thêm RoomImage cho gymRooms
         foreach ($gymRooms as $gym) {
@@ -62,10 +62,10 @@ class GymController extends Controller
             'address' => $request->address,
             'price' => $request->price,
         ];
-        if($request->has('services'))
-        foreach ($request->services as $service) {
-            $gym[$service] = 1;
-        }
+        if ($request->has('services'))
+            foreach ($request->services as $service) {
+                $gym[$service] = 1;
+            }
         Room::create($gym);
         User::where('id', Auth::user()->id)->update(['phone' => $request->phone]);
 
@@ -169,7 +169,7 @@ class GymController extends Controller
         $price = $request->input('inputPrice') ? $request->input('inputPrice') : null;
         $service = $request->input('inputService') ? $request->input('inputService') : null;
 
-        $query = Room::query()->orderBy('rating', 'desc');
+        $query = Room::query()->orderBy('rating', 'desc')->where('active', 1);
 
         if ($name) {
             $query->where('name', 'LIKE', '%' . $name . '%');
@@ -253,7 +253,8 @@ class GymController extends Controller
         $gym->delete();
         return redirect()->route('my-gym');
     }
-    public function updateStatus(){
+    public function updateStatus()
+    {
         $gym = Room::where('owner_id', Auth::user()->id)->first();
         $gym->active = $gym->active == 1 ? 0 : 1;
         $gym->save();
