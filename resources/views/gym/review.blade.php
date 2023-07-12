@@ -379,6 +379,7 @@
     function createImagePreview(fileInput) {
         var containerImage = document.querySelector('.container-image');
 
+        containerImage.innerHTML = '';
         for (var i = 0; i < fileInput.files.length; i++) {
             var file = fileInput.files[i];
             var reader = new FileReader();

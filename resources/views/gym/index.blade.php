@@ -22,7 +22,7 @@
                 {{-- phần dropdown--}}
                 <div class="custom-select col-lg-3">
                     <select name="inputPrice" id="inputPrice" class="col-lg-3">
-                        <option value="" disabled selected hidden>価格</option>
+                        <option value="" disabled selected hidden>価格(VND)</option>
                         <option value="1">10万-30万</option>
                         <option value="2">30万-50万</option>
                         <option value="3">50万以上</option>

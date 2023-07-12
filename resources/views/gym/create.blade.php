@@ -44,7 +44,7 @@
                 <input type="text" id="phone" name="phone" class="form-control" autocomplete="off" required>
             </div>
             <div class="form-group">
-                <label for="price">Mức giá 1 tháng:</label>
+                <label for="price">Mức giá 1 tháng(VND):</label>
                 <input type="text" id="price" name="price" class="form-control" autocomplete="off" required>
             </div>
             <div class="form-group">

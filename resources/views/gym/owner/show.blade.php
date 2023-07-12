@@ -88,7 +88,7 @@
             </div>
             <div class="row">
                 <p class="col-4 custom-space-text text-bold">1っか月登録価格:</p>
-                <p class="col-8 custom-space-text">{{$gym->price}}</p>
+                <p class="col-8 custom-space-text">{{$gym->price}} VND</p>
             </div>
             <div class="row">
                 <p class="col-4 custom-space-text text-bold">サビース:</p>
