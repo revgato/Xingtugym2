@@ -42,6 +42,10 @@ class ReviewController extends Controller
         ]);
         $gym->rating = $gym->reviews->avg('rating');
         $gym->save();
+        if ($request->has('pool_rating')) {
+            $gym->pool_rating = $gym->reviews->avg('pool_rating');
+            $gym->save();
+        }
         return redirect()->route('gym.review', $gym->id);
     }
 

@@ -29,11 +29,11 @@
                 <input type="hidden" name="pool_rating" id="pool-rating-input">
                 <p class="font-size-custom-text">プール：</p>
                 <div class="star-group-rating-space">
-                    <i class="fa-solid fa-star custom-star-rating-review" onclick="selectPoolStar(1)"></i>
-                    <i class="fa-solid fa-star custom-star-rating-review" onclick="selectPoolStar(2)"></i>
-                    <i class="fa-solid fa-star custom-star-rating-review" onclick="selectPoolStar(3)"></i>
-                    <i class="fa-solid fa-star custom-star-rating-review" onclick="selectPoolStar(4)"></i>
-                    <i class="fa-solid fa-star custom-star-rating-review" onclick="selectPoolStar(5)"></i>
+                    <i class="fa-solid fa-star custom-star-rating-review input-pool-rating" onclick="selectPoolStar(1)"></i>
+                    <i class="fa-solid fa-star custom-star-rating-review input-pool-rating" onclick="selectPoolStar(2)"></i>
+                    <i class="fa-solid fa-star custom-star-rating-review input-pool-rating" onclick="selectPoolStar(3)"></i>
+                    <i class="fa-solid fa-star custom-star-rating-review input-pool-rating" onclick="selectPoolStar(4)"></i>
+                    <i class="fa-solid fa-star custom-star-rating-review input-pool-rating" onclick="selectPoolStar(5)"></i>
                 </div>
                 @endif
             </div>
@@ -312,7 +312,7 @@
 
     function selectPoolStar(rating) {
         document.getElementById('pool-rating-input').value = rating;
-        const stars = document.getElementsByClassName('custom-star-rating-review');
+        const stars = document.getElementsByClassName('input-pool-rating');
         for (let i = 0; i < stars.length; i++) {
             if (i < rating) {
                 stars[i].style.color = '#cccc04'; // Màu sao được chọn
