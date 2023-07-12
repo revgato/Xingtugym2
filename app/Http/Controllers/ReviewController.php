@@ -29,16 +29,36 @@ class ReviewController extends Controller
         return view('gym.review', compact('gym', 'reviews'));
     }
 
-    public function stored(Request $request)
+    public function stored(Request $request, Room $gym)
     {
         Review::create([
             'user_id' => Auth::user()->id,
-            'room_id' => $request->room_id,
+            'room_id' => $gym->id,
             'review' => $request->review,
             'rating' => $request->rating,
             'poolRating' => $request->poolRating,
             'like' => 0,
             'dislike' => 0,
         ]);
+        return redirect()->route('gym.review', $gym->id);
+    }
+
+    public function updateLike(Request $request, Review $review)
+    {
+        $review->reviewReacts->where('user_id', Auth::user()->id)->where('react', 1)->count() == 0 ? $review->reviewReacts()->create([
+            'user_id' => Auth::user()->id,
+            'review_id' => $review->id,
+            'react' => 1,
+        ]) : $review->reviewReacts->where('user_id', Auth::user()->id)->where('react', 1)->first()->delete();
+        return response()->json(['success' => 'success']);
+    }
+    public function updateDislike(Request $request, Review $review)
+    {
+        $review->reviewReacts->where('user_id', Auth::user()->id)->where('react', 0)->count() == 0 ? $review->reviewReacts()->create([
+            'user_id' => Auth::user()->id,
+            'review_id' => $review->id,
+            'react' => 0,
+        ]) : $review->reviewReacts->where('user_id', Auth::user()->id)->where('react', 0)->first()->delete();
+        return response()->json(['success' => 'success']);
     }
 }

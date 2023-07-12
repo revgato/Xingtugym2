@@ -4,15 +4,16 @@
 <div class="container-fluid mt-5 padding-left-custom">
     <div class="row mt-5">
         <div class="form-box-space position-modify">
-            <form method="POST" action="" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('gym.review.stored',['gym' => $gym->id])}}" enctype="multipart/form-data">
                 @csrf
-                <textarea class="col-lg-10 margin-custom-rating-textbox" name="comment" id="comment-rating" cols="30" rows="10" placeholder="コメントを入力してください">
-
+                <textarea required class="col-lg-10 margin-custom-rating-textbox" name="review" id="comment-rating" cols="30" rows="10" placeholder="コメントを入力してください">
                     </textarea>
                 <div class="attachment-group">
-                    <input id="attachment-input" type="file" name="image">
+                    <input id="attachment-input" name="file[]" type="file" class="file" multiple accept="image/*" />
                     <label for="attachment-input" class="attachment-label"> <i id="attachment-link" class="fa-solid fa-paperclip"></i></label>
                 </div>
+                <!-- IMAGE PREVIEW CONTAINER -->
+                <div class="container-image"></div>
                 <input type="hidden" name="rating" id="rating-input">
                 <div class="star-group-space">
                     <i class="input-rating fa-solid fa-star" onclick="selectStar(1)"></i>
@@ -21,25 +22,25 @@
                     <i class="input-rating fa-solid fa-star" onclick="selectStar(4)"></i>
                     <i class="input-rating fa-solid fa-star" onclick="selectStar(5)"></i>
                 </div>
-            </form>
+
         </div>
         <div class="row-pool-rating-btn d-flex justify-content-around mt-5">
             <div class="gym-rating-box col-lg-4 d-flex">
                 @if($gym->pool == 1)
-
+                <input type="hidden" name="poolRating" id="pool-rating-input">
                 <p class="font-size-custom-text">プール：</p>
                 <div class="star-group-rating-space">
-                    <i class="fa-solid fa-star custom-star-rating-review"></i>
-                    <i class="fa-solid fa-star custom-star-rating-review"></i>
-                    <i class="fa-solid fa-star custom-star-rating-review"></i>
-                    <i class="fa-solid fa-star custom-star-rating-review"></i>
-                    <i class="fa-solid fa-star custom-star-rating-review"></i>
+                    <i class="fa-solid fa-star custom-star-rating-review" onclick="selectPoolStar(1)"></i>
+                    <i class="fa-solid fa-star custom-star-rating-review" onclick="selectPoolStar(2)"></i>
+                    <i class="fa-solid fa-star custom-star-rating-review" onclick="selectPoolStar(3)"></i>
+                    <i class="fa-solid fa-star custom-star-rating-review" onclick="selectPoolStar(4)"></i>
+                    <i class="fa-solid fa-star custom-star-rating-review" onclick="selectPoolStar(5)"></i>
                 </div>
                 @endif
             </div>
-            <button type="button" class="btn btn-primary col-lg-2 btn-green-color" onclick="">レビュー</button>
-
+            <button type="submit" class="btn btn-primary col-lg-2 btn-green-color">レビュー</button>
         </div>
+        </form>
         <hr class="col-lg-11 mt-5">
 
         {{-- phần tử review kết quả--}}
@@ -97,16 +98,16 @@
                 <div class="like-dislike-wrapper d-flex justify-content-around">
                     {{ $review->like}}
                     @if($review->liked == 1)
-                    <i class="fa-solid fa-thumbs-up icon-like-dislike" style="color :blue"></i>
+                    <i class="fa-solid fa-thumbs-up icon-like-dislike" style="color :blue" onclick="like({{ $review->id }})"></i>
                     @else
-                    <i class="fa-solid fa-thumbs-up icon-like-dislike"></i>
+                    <i class="fa-solid fa-thumbs-up icon-like-dislike" onclick="like({{ $review->id }})"></i>
                     @endif
 
                     {{ $review->dislike}}
                     @if($review->dislikes == 1)
-                    <i class="fa-solid fa-thumbs-down icon-like-dislike" style="color :blue"></i>
+                    <i class="fa-solid fa-thumbs-down icon-like-dislike" style="color :blue" onclick="dislike({{ $review->id }})"></i>
                     @else
-                    <i class="fa-solid fa-thumbs-down icon-like-dislike"></i>
+                    <i class="fa-solid fa-thumbs-down icon-like-dislike" onclick="dislike({{ $review->id }})"></i>
                     @endif
                 </div>
 
@@ -295,12 +296,6 @@
 </style>
 
 <script>
-    $(document).ready(function() {
-        $('#attachment-link').onclick(function() {
-            $('#attachment-input').click();
-        });
-    });
-
     function selectStar(rating) {
         // Cập nhật giá trị số sao vào input hidden
         document.getElementById('rating-input').value = rating;
@@ -314,6 +309,48 @@
                 stars[i].style.color = 'gray'; // Màu sao không được chọn
             }
         }
+    }
+
+    function selectPoolStar(rating) {
+        document.getElementById('pool-rating-input').value = rating;
+        const stars = document.getElementsByClassName('custom-star-rating-review');
+        for (let i = 0; i < stars.length; i++) {
+            if (i < rating) {
+                stars[i].style.color = '#cccc04'; // Màu sao được chọn
+            } else {
+                stars[i].style.color = 'gray'; // Màu sao không được chọn
+            }
+        }
+    }
+
+    function like(id) {
+        //using ajax
+        $.ajax({
+            url: "/gym/review/" + id + "/like",
+            type: "POST",
+            data: {
+                _token: "{{ csrf_token() }}",
+            },
+            success: function(response) {
+                // reload page
+                window.location.reload();
+            },
+        });
+    }
+
+    function dislike(id) {
+        //using ajax
+        $.ajax({
+            url: "/gym/review/" + id + "/dislike",
+            type: "POST",
+            data: {
+                _token: "{{ csrf_token() }}",
+            },
+            success: function(response) {
+                // reload page
+                window.location.reload();
+            },
+        });
     }
 </script>
 @endsection

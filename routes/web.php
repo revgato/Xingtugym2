@@ -44,4 +44,7 @@ Route::prefix('/gym')->group(function () {
     Route::get('/', [App\Http\Controllers\GymController::class, 'index'])->name('gym.index');
     Route::get('/{id}', [App\Http\Controllers\GymController::class, 'show'])->name('gym.show');
     Route::get('/review/{gym}', [App\Http\Controllers\ReviewController::class, 'index'])->name('gym.review');
+    Route::post('/review/{gym}', [App\Http\Controllers\ReviewController::class, 'stored'])->name('gym.review.stored');
+    Route::post('/review/{review}/like', [App\Http\Controllers\ReviewController::class, 'updateLike'])->name('gym.review.like');
+    Route::post('/review/{review}/dislike', [App\Http\Controllers\ReviewController::class, 'updateDislike'])->name('gym.review.dislike');
 });
