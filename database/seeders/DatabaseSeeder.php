@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RoomSeeder::class);
         $this->call(RoomImageSeeder::class);
         $this->call(ReviewSeeder::class);
-        // $this->call(ReviewImageSeeder::class);
+        $this->call(ReviewImageSeeder::class);
         $this->call(ReviewReactSeeder::class);
     }
 }
