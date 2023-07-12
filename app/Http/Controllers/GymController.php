@@ -110,7 +110,7 @@ class GymController extends Controller
                 }
             }
             $roomImages->delete();
-            
+
             foreach ($fileImages as $file) {
                 $fileName = $file->getClientOriginalName();
                 $fileName = '/images/roomImages/' . uniqid('gymImage') . '.' . $file->getClientOriginalExtension();
@@ -201,7 +201,7 @@ class GymController extends Controller
                     $query->where('sauna', 1);
                 } else {
                     if ($service == 3) {
-                        $query->where('packing', 1);
+                        $query->where('parking', 1);
                     }
                 }
             }
