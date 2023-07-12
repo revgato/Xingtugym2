@@ -40,11 +40,23 @@ class ReviewController extends Controller
             'like' => 0,
             'dislike' => 0,
         ]);
+        //get review created
+        $review = $gym->reviews->last();
         $gym->rating = $gym->reviews->avg('rating');
         $gym->save();
         if ($request->has('pool_rating')) {
             $gym->pool_rating = $gym->reviews->avg('pool_rating');
             $gym->save();
+        }
+        
+        if ($request->has('file')) {
+            foreach ($request->file as $file) {
+                $fileName = '/images/reviewImages/' . uniqid('reviewImage') . '.' . $file->getClientOriginalExtension();
+                $review->reviewImages()->create([
+                    'image_url' => $fileName,
+                ]);
+                $file->move(public_path('images/reviewImages'), $fileName);
+            }
         }
         return redirect()->route('gym.review', $gym->id);
     }

@@ -4,6 +4,7 @@
 <div class="container-fluid mt-5 padding-left-custom">
     <div class="row mt-5">
         <h1 onclick="window.history.back()">{{ $gym->name }}</h1>
+        @if(Auth::check() && Auth::user()->role == 'user')
         <div class="form-box-space position-modify">
             <form method="POST" action="{{ route('gym.review.stored',['gym' => $gym->id])}}" enctype="multipart/form-data">
 
@@ -41,6 +42,7 @@
             <button type="submit" class="btn btn-primary col-lg-2 btn-green-color">レビュー</button>
         </div>
         </form>
+        @endif
         <hr class="col-lg-11 mt-5">
 
         {{-- phần tử review kết quả--}}
@@ -88,30 +90,40 @@
                 </div>
             </div>
 
-            <div class="review-content-image d-flex flex-wrap justify-content-start mb-5 col-lg-9 margin-left-custom">
+            <div class="review-content-image d-flex flex-wrap justify-content-start mb-5 margin-left-custom">
                 @foreach($review->ImagesReview as $image)
-                <div class="image-review-box mx-5" style="margin-bottom: 25px">
-                    <img src="{{$image->image_url}}" alt="image" width="300px" height="300px">
+                <div class="image-review-box mx-2" style="margin-bottom: 25px">
+                    <img src="{{$image->image_url}}" alt="image" width="100px" height="100px">
                 </div>
                 @endforeach
 
                 <div class="like-dislike-wrapper d-flex justify-content-around">
 
 
+                    @if(!Auth::check())
+                    <i class="fa-solid fa-thumbs-up icon-like-dislike"></i>
+                    <h1 style="margin-right : 15px">{{ $review->like}}</h1>
+                    @else
                     @if($review->liked == 1)
                     <i class="fa-solid fa-thumbs-up icon-like-dislike" style="color :blue" onclick="like({{ $review->id }})"></i>
                     @else
                     <i class="fa-solid fa-thumbs-up icon-like-dislike" onclick="like({{ $review->id }})"></i>
                     @endif
                     <h1 style="margin-right : 15px">{{ $review->like}}</h1>
+                    @endif
 
 
+                    @if(!Auth::check())
+                    <i class="fa-solid fa-thumbs-down icon-like-dislike"></i>
+                    <h1>{{ $review->dislike}}</h1>
+                    @else
                     @if($review->dislikes == 1)
                     <i class="fa-solid fa-thumbs-down icon-like-dislike" style="color :blue" onclick="dislike({{ $review->id }})"></i>
                     @else
                     <i class="fa-solid fa-thumbs-down icon-like-dislike" onclick="dislike({{ $review->id }})"></i>
                     @endif
                     <h1>{{ $review->dislike}}</h1>
+                    @endif
                 </div>
 
             </div>
@@ -265,8 +277,8 @@
     }
 
     .image-review-box {
-        width: 300px;
-        height: 300px;
+        width: 100px;
+        height: 100px;
         border: 2px solid #a00d0d;
         border-radius: 8px;
         overflow: hidden;
