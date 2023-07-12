@@ -27,13 +27,13 @@
             <div class="gym-rating-box col-lg-4 d-flex">
                 @if($gym->pool == 1)
 
-                <p class="font-size-custorm-text">プール：</p>
+                <p class="font-size-custom-text">プール：</p>
                 <div class="star-group-rating-space">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star" style="line-height: 48px;"></i>
+                    <i class="fa-solid fa-star" style="line-height: 48px;"></i>
+                    <i class="fa-solid fa-star" style="line-height: 48px;"></i>
+                    <i class="fa-solid fa-star" style="line-height: 48px;"></i>
+                    <i class="fa-solid fa-star" style="line-height: 48px;"></i>
                 </div>
                 @endif
             </div>
@@ -47,11 +47,11 @@
         <div class="content-review-element">
             <div class="content-review-wrapper">
                 <div class="gym-review-text d-flex justify-content-between">
-                    <div class="avatar-group">
+                    <div class="avatar-group col-lg-4">
                         <div class="avatar-circle">
                             <img src="{{ $review->userAvatar }}" alt="Avatar">
                         </div>
-                        <p class="font-size-custorm-text mt-5">{{ $review->userName }}</p>
+                        <p class="font-size-custom-text mt-5">{{ $review->userName }}</p>
                         <div class="star-group-review-space">
                             <div class="star-group">
                                 @for ($i = 1; $i <= 5; $i++) @if ($review->rating >= $i)
@@ -65,25 +65,25 @@
 
                     </div>
                     <div class="review-content-span ms-5">
-                        <p class="font-size-custorm-text mt-5">{{ $review->review}}</p>
+                        <p class="font-size-custom-text mt-5">{{ $review->review}}</p>
                     </div>
                 </div>
 
                 @if($review->pool_rating != null)
                 <div class="gym-review-box col-lg-4 d-flex">
-                    <p class="font-size-custorm-text">プール：</p>
+                    <p class="font-size-custom-text">プール：</p>
                     @for ($i = 1; $i <= 5; $i++) @if ($review->pool_rating >= $i)
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star custom-star-rating-review"></i>
                         @else
-                        <i class="far fa-star"></i>
+                        <i class="far fa-star custom-star-rating-review"></i>
                         @endif
                         @endfor
                 </div>
                 @endif
 
                 <div class="review-datetime-space d-flex">
-                    <p class="font-size-custorm-text">投稿日：</p>
-                    <p class="font-size-custorm-text">{{ $review->created_at }}</p>
+                    <p class="font-size-custom-text">投稿日：</p>
+                    <p class="font-size-custom-text">{{ $review->created_at }}</p>
                 </div>
             </div>
 
@@ -168,10 +168,11 @@
 
     .star-group-rating-space {
         font-size: 2rem;
+        line-height: 48px;
     }
 
 
-    .font-size-custorm-text {
+    .font-size-custom-text {
         font-size: 2rem;
     }
 
@@ -277,6 +278,15 @@
         margin-top: 100px;
         margin-bottom: 100px;
     }
+
+    .custom-star-rating-review {
+        font-size: 2rem;
+    }
+
+    i.fas.fa-star.custom-star-rating-review {
+        line-height: 48px;
+    }
+
 </style>
 
 <script>
