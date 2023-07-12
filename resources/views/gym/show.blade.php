@@ -93,7 +93,7 @@
                     @endif
                 </p>
             </div>
-            <button type="button" class="btn btn-primary custom-button-review">レビューを表示して書く</button>
+            <button type="button" class="btn btn-primary custom-button-review" onclick="window.location='{{ route('gym.review', ['gym' => $gym->id]) }}'">レビューを表示して書く</button>
         </div>
     </div>
 
