@@ -29,11 +29,11 @@
 
                 <p class="font-size-custom-text">プール：</p>
                 <div class="star-group-rating-space">
-                    <i class="fa-solid fa-star" style="line-height: 48px;"></i>
-                    <i class="fa-solid fa-star" style="line-height: 48px;"></i>
-                    <i class="fa-solid fa-star" style="line-height: 48px;"></i>
-                    <i class="fa-solid fa-star" style="line-height: 48px;"></i>
-                    <i class="fa-solid fa-star" style="line-height: 48px;"></i>
+                    <i class="fa-solid fa-star custom-star-rating-review"></i>
+                    <i class="fa-solid fa-star custom-star-rating-review"></i>
+                    <i class="fa-solid fa-star custom-star-rating-review"></i>
+                    <i class="fa-solid fa-star custom-star-rating-review"></i>
+                    <i class="fa-solid fa-star custom-star-rating-review"></i>
                 </div>
                 @endif
             </div>
@@ -178,6 +178,8 @@
 
     .btn-green-color {
         background-color: #12c4c8;
+        padding: 16px 5px;
+
     }
 
     .btn-green-color:hover {
@@ -198,7 +200,7 @@
 
     .gym-review-box {
         position: absolute;
-        top: 5px;
+        top: -45px;
         right: 5px;
     }
 
@@ -217,7 +219,7 @@
 
     .review-datetime-space {
         position: absolute;
-        top: 80px;
+        top: 5px;
         right: 129px;
     }
 
@@ -287,6 +289,9 @@
         line-height: 48px;
     }
 
+    .fa-star:before {
+        line-height: 48px;
+    }
 </style>
 
 <script>
