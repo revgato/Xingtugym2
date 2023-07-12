@@ -35,8 +35,8 @@ class ReviewController extends Controller
             'user_id' => Auth::user()->id,
             'room_id' => $gym->id,
             'review' => $request->review,
-            'rating' => $request->rating,
-            'pool_rating' => $request->pool_rating,
+            'rating' => $request->rating ? $request->rating : 0,
+            'pool_rating' => $request->pool_rating ? $request->pool_rating : 0,
             'like' => 0,
             'dislike' => 0,
         ]);
