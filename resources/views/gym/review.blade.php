@@ -372,6 +372,12 @@
         justify-content: center;
         text-align: center;
     }
+
+    .img-fluid {
+        width: 90%;
+        height: 78vh;
+        object-fit: cover;
+    }
 </style>
 
 <script>
