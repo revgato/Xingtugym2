@@ -167,10 +167,9 @@ class GymController extends Controller
         $name = $request->input('inputName') ? $request->input('inputName') : null;
         $address = $request->input('inputAddress') ? $request->input('inputAddress') : null;
         $price = $request->input('inputPrice') ? $request->input('inputPrice') : null;
-        $service = $request->input('inputService') ? $request->input('inputService') : null;
+        $services = $request->input('inputServices') ? $request->input('inputServices') : null;
 
-        $query = Room::query()->orderBy('rating', 'desc')->where('active', 1);
-
+        $query = Room::query()->orderBy('rating', 'desc');
         if ($name) {
             $query->where('name', 'LIKE', '%' . $name . '%');
         }
@@ -193,20 +192,24 @@ class GymController extends Controller
             }
         }
 
-        if ($service) {
-            if ($service == 1) {
-                $query->where('pool', 1)->orderBy('pool_rating', 'desc');
-            } else {
-                if ($service == 2) {
-                    $query->where('sauna', 1);
-                } else {
-                    if ($service == 3) {
-                        $query->where('parking', 1);
+        if ($services) {
+            $query->where(function ($q) use ($services) {
+                foreach ($services as $value) {
+                    if ($value == 1) {
+                        $q->Where(function ($subQ) {
+                            $subQ->where('pool', 1)->orderBy('pool_rating', 'desc');
+                        });
+                    } elseif ($value == 2) {
+                        $q->Where('sauna', 1);
+                    } elseif ($value == 3) {
+                        $q->Where('parking', 1);
                     }
                 }
-            }
+            });
         }
+
         $gymRooms = $query->paginate(10);
+
         // Thêm RoomImage cho gymRooms
         foreach ($gymRooms as $gym) {
             $roomImages = $gym->roomImages()->get();
@@ -218,6 +221,7 @@ class GymController extends Controller
                 $gym->firstImage = null;
             }
         }
+
         return view('gym.index', compact('gymRooms'));
     }
 
