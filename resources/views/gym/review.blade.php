@@ -3,6 +3,7 @@
 @section('content')
 <div class="container-fluid mt-5 padding-left-custom">
     <div class="row mt-5">
+        <h1 onclick="window.history.back()">{{ $gym->name }}</h1>
         <div class="form-box-space position-modify">
             <form method="POST" action="{{ route('gym.review.stored',['gym' => $gym->id])}}" enctype="multipart/form-data">
                 @csrf
@@ -95,19 +96,22 @@
                 @endforeach
 
                 <div class="like-dislike-wrapper d-flex justify-content-around">
-                    {{ $review->like}}
+
+
                     @if($review->liked == 1)
                     <i class="fa-solid fa-thumbs-up icon-like-dislike" style="color :blue" onclick="like({{ $review->id }})"></i>
                     @else
                     <i class="fa-solid fa-thumbs-up icon-like-dislike" onclick="like({{ $review->id }})"></i>
                     @endif
+                    <h1 style="margin-right : 15px">{{ $review->like}}</h1>
 
-                    {{ $review->dislike}}
+
                     @if($review->dislikes == 1)
                     <i class="fa-solid fa-thumbs-down icon-like-dislike" style="color :blue" onclick="dislike({{ $review->id }})"></i>
                     @else
                     <i class="fa-solid fa-thumbs-down icon-like-dislike" onclick="dislike({{ $review->id }})"></i>
                     @endif
+                    <h1>{{ $review->dislike}}</h1>
                 </div>
 
             </div>
