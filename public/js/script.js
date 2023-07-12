@@ -1,20 +1,20 @@
 $(document).ready(function() {
 
-  $('.image-box-item').hover(function() { changeSlide($(this)); });
+  $('.image-box-item').hover(function() { changePicture($(this)); });
 
   $(document).mousemove(function(e) {
     var x = e.clientX; var y = e.clientY;
     
     var x = e.clientX; var y = e.clientY;
 
-    var imgx1 = $('.carousel-item.active').offset().left;
-    var imgx2 = $('.carousel-item.active').outerWidth() + imgx1;
-    var imgy1 = $('.carousel-item.active').offset().top;
-    var imgy2 = $('.carousel-item.active').outerHeight() + imgy1;
+    var imgx1 = $('.room-display-img').offset().left;
+    var imgx2 = $('.room-display-img').outerWidth() + imgx1;
+    var imgy1 = $('.room-display-img').offset().top;
+    var imgy2 = $('.room-display-img').outerHeight() + imgy1;
 
     if ( x > imgx1 && x < imgx2 && y > imgy1 && y < imgy2 ) {
       $('#lens').show(); $('#result').show();
-      imageZoom( $('.carousel-item.active .carousel-img'), $('#result'), $('#lens') );
+      imageZoom( $('.room-display-img .carousel-img'), $('#result'), $('#lens') );
     } else {
       $('#lens').hide(); $('#result').hide();
     }
@@ -53,9 +53,7 @@ function imageZoom( img, result, lens ) {
 }
 
 
-function changeSlide(elm) {
-  $('.carousel-item').removeClass('active');
-  $('.carousel-item').eq( elm.index() ).addClass('active');
-  $('.carousel-item').removeClass('active');
-  $('.carousel-item').eq( elm.index() ).addClass('active');
+function changePicture(elm) {
+  var img = elm.find('img').attr('src');
+  $('.carousel-img').attr('src', img);
 }
