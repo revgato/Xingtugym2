@@ -186,5 +186,5 @@
     #lens, .carousel-item, .image-box-item, #result { border: solid var(--light-grey-2) 1px; }
 </style>
 
-<script type="text/javascript" src="{{asset('js/script.js')}}"></script>
+<script type="text/javascript" src="{{ secure_asset('js/script.js')}}"></script>
 @endsection
