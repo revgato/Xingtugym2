@@ -1,9 +1,26 @@
 @extends('layout.app')
 
 @section('content')
+<!-- Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="imageModalLabel">Ảnh</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img src="" class="img-fluid">
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container-fluid mt-5 padding-left-custom">
     <div class="row mt-5">
-        <h1 onclick="window.history.back()">{{ $gym->name }}</h1>
+        <h1 onclick="window.history.back()" style="cursor: pointer;">{{ $gym->name }}</h1>
         @if(Auth::check() && Auth::user()->role == 'user')
         <div class="form-box-space position-modify">
             <form method="POST" action="{{ route('gym.review.stored',['gym' => $gym->id])}}" enctype="multipart/form-data">
@@ -340,6 +357,21 @@
     .image-container {
         position: relative;
     }
+
+    #imageModal {
+        justify-content: center;
+    }
+
+    .modal-content {
+        max-width: 100%;
+    }
+
+    .modal-body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
 </style>
 
 <script>
@@ -414,10 +446,11 @@
     }
 
     var attachmentInput = document.getElementById('attachment-input');
-    attachmentInput.addEventListener('change', function() {
-        createImagePreview(this);
-    });
-
+    if (attachmentInput) {
+        attachmentInput.addEventListener('change', function() {
+            createImagePreview(this);
+        });
+    }
 
     function selectStar(rating) {
         // Cập nhật giá trị số sao vào input hidden
@@ -475,5 +508,18 @@
             },
         });
     }
+
+    $(document).ready(function() {
+        // When click image-review-box class , replace source image model with source image clicked
+        $('.image-review-box').click(function() {
+            var src = $(this).children('img').attr('src');
+            $('#imageModal').find('img').attr('src', src);
+            $('#imageModal').modal('show');
+        });
+
+        $(".close").click(function() {
+            $('#imageModal').modal('hide');
+        });
+    });
 </script>
 @endsection

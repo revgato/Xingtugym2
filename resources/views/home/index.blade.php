@@ -24,10 +24,10 @@
   <div class="swiper-wrapper">
     @foreach($topGym as $gym)
     <div class="swiper-slide">
-      <img class="card-img gym-wrap" src="{{ $gym->firstImage }}" alt="topGym" onclick="goToGymDetailPage({{ $gym->id }})">
+      <img class="card-img gym-wrap-image-custom" src="{{ $gym->firstImage }}" alt="topGym" onclick="goToGymDetailPage({{ $gym->id }})">
       <div class="team-content">
-        <h5 style="font-size: 2rem; font-weight: bold; color: white">{{ $gym->name }}</h5>
-        <p class=" mt-2">{{ $gym->address }}</p>
+        <h5 style="font-size: 2rem; font-weight: bold; color: white; cursor: pointer;">{{ $gym->name }}</h5>
+        <p class=" mt-2" style="cursor: pointer;">{{ $gym->address }}</p>
       </div>
     </div>
     @endforeach
@@ -92,6 +92,12 @@
   .swiper-slide:hover .team-content {
     opacity: 1;
     color: #fff;
+  }
+
+  .gym-wrap-image-custom {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 </style>
 <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
