@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('content')
-<div id="search-wrapper" class="search-wrapper m-5 pl-5 pr-5">
+<div id="search-wrapper" class="search-wrapper m-5 pl-5 pr-5 h-100">
     <p style="font-size: 2rem; font-weight: bold">検索</p>
 
     <form action="{{ route('gym.search') }}" method="GET">
@@ -41,12 +41,30 @@
         </div>
 
     </form>
+    @if($gymRooms->isEmpty())
+    <div class="container-fluid pt-5 mt-5 ">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="text-center data-notfound">検索結果がありません</h3>
+            </div>
+        </div>
+    </div>
+    @else
+    @include('gym.listRoom')
+    @endif
 </div>
 
 
-@include('gym.listRoom')
 
 <style>
+    .data-notfound {
+        font-weight: 300;
+        font-size: 40px;
+        text-align: center;
+        padding: 30px 0;
+        color: #00bcd4;
+    }
+
     #search-wrapper.search-wrapper input {
         line-height: 53.6px;
     }

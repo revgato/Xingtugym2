@@ -158,7 +158,7 @@ class GymController extends Controller
         }
 
         $owner = $gym->owner;
-        $gym_imgs = $gym->roomImages()->get()->take(3);
+        $gym_imgs = $gym->roomImages()->get();
         return view('gym.show', compact('gym', 'gym_imgs', 'poolAverageRating', 'owner'));
     }
 
@@ -242,7 +242,7 @@ class GymController extends Controller
 
         $owner = $gym->owner;
 
-        $gym_imgs = $gym->roomImages()->get()->take(3);
+        $gym_imgs = $gym->roomImages()->get();
 
         return view('gym.owner.show', compact('gym', 'gym_imgs', 'poolAverageRating', 'owner'));
     }
