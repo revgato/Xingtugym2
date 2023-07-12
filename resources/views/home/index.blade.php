@@ -24,7 +24,7 @@
   <div class="swiper-wrapper">
     @foreach($topGym as $gym)
     <div class="swiper-slide">
-      <img class="card-img" src="{{ $gym->firstImage }}" alt="topGym" onclick="goToGymDetailPage({{ $gym->id }})">
+      <img class="card-img gym-wrap" src="{{ $gym->firstImage }}" alt="topGym" onclick="goToGymDetailPage({{ $gym->id }})">
       <div class="team-content">
         <h5 style="font-size: 2rem; font-weight: bold; color: white">{{ $gym->name }}</h5>
         <p class=" mt-2">{{ $gym->address }}</p>

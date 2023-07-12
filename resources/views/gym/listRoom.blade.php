@@ -95,6 +95,9 @@
         text-align: center;
         line-height: 20px;
     }
+    .gym-wrap {
+        cursor: pointer;
+    }
 </style>
 
 <script>

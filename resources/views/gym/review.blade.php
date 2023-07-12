@@ -15,7 +15,7 @@
                     <label for="attachment-input" class="attachment-label"> <i id="attachment-link" class="fa-solid fa-paperclip"></i></label>
                 </div>
                 <!-- IMAGE PREVIEW CONTAINER -->
-                <div class="container-image"></div>
+                <div class="container-image d-flex justify-content-between"></div>
                 <input type="hidden" name="rating" id="rating-input">
                 <div class="star-group-space">
                     <i class="input-rating fa-solid fa-star" onclick="selectStar(1)"></i>
@@ -190,6 +190,7 @@
 
     .font-size-custom-text {
         font-size: 1.5rem;
+        line-height: 48px;
     }
 
     .btn-green-color {
@@ -311,9 +312,92 @@
     .custom-margin-left-text-review {
         margin-left: 72px;
     }
+
+    /*    phần CSS review box*/
+    .container-image {
+        margin-top: 10px;
+        position: absolute;
+        top: 180px;
+        left: 160px;
+    }
+
+    .preview-image {
+        width: 100px;
+        height: 100px;
+        margin-right: 10px;
+        object-fit: cover;
+        border: 1px solid #951e1e;
+    }
+
+    button.delete-button {
+        position: absolute;
+        top: -29px;
+        right: 10px;
+        color: #f4f0f0;
+        background: #e61f1f;
+        font-weight: bold;
+    }
+
+    .image-container {
+        position: relative;
+    }
 </style>
 
 <script>
+    function deleteImage(button) {
+        // Xóa ảnh khỏi preview
+        var imageContainer = button.parentNode;
+        imageContainer.remove();
+
+        // Xóa ảnh khỏi files
+        var imagePath = imageContainer.querySelector('img').getAttribute('src');
+        //Gửi yêu cầu đến server để xóa file theo đường dẫn imagePath
+
+        //Cập nhật lại danh sách tệp tin (nếu cần)
+        var fileList = document.getElementById('file-list');
+        var fileItem = imageContainer.querySelector('.file-item');
+        fileItem.remove();
+    }
+
+    function createImagePreview(fileInput) {
+        var containerImage = document.querySelector('.container-image');
+
+        for (var i = 0; i < fileInput.files.length; i++) {
+            var file = fileInput.files[i];
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                var imageContainer = document.createElement('div');
+                imageContainer.classList.add('image-container');
+
+                var img = document.createElement('img');
+                img.src = e.target.result;
+                img.alt = 'Image Preview';
+                img.classList.add('preview-image');
+
+                var deleteButton = document.createElement('button');
+                deleteButton.classList.add('delete-button');
+                deleteButton.textContent = 'X';
+                deleteButton.addEventListener('click', function() {
+                    deleteImage(this);
+                });
+
+                imageContainer.appendChild(img);
+                imageContainer.appendChild(deleteButton);
+
+                containerImage.appendChild(imageContainer);
+            };
+
+            reader.readAsDataURL(file);
+        }
+    }
+
+    var attachmentInput = document.getElementById('attachment-input');
+    attachmentInput.addEventListener('change', function() {
+        createImagePreview(this);
+    });
+
+
     function selectStar(rating) {
         // Cập nhật giá trị số sao vào input hidden
         document.getElementById('rating-input').value = rating;
