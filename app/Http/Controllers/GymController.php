@@ -110,7 +110,7 @@ class GymController extends Controller
                 }
             }
             $roomImages->delete();
-            
+
             foreach ($fileImages as $file) {
                 $fileName = $file->getClientOriginalName();
                 $fileName = '/images/roomImages/' . uniqid('gymImage') . '.' . $file->getClientOriginalExtension();
@@ -158,7 +158,7 @@ class GymController extends Controller
         }
 
         $owner = $gym->owner;
-        $gym_imgs = $gym->roomImages()->get()->take(3);
+        $gym_imgs = $gym->roomImages()->get();
         return view('gym.show', compact('gym', 'gym_imgs', 'poolAverageRating', 'owner'));
     }
 
@@ -201,7 +201,7 @@ class GymController extends Controller
                     $query->where('sauna', 1);
                 } else {
                     if ($service == 3) {
-                        $query->where('packing', 1);
+                        $query->where('parking', 1);
                     }
                 }
             }
@@ -242,7 +242,7 @@ class GymController extends Controller
 
         $owner = $gym->owner;
 
-        $gym_imgs = $gym->roomImages()->get()->take(3);
+        $gym_imgs = $gym->roomImages()->get();
 
         return view('gym.owner.show', compact('gym', 'gym_imgs', 'poolAverageRating', 'owner'));
     }
