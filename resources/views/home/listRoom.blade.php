@@ -1,4 +1,4 @@
-<h2 class="mx-5" style="font-weight: bold; color: #4066E0">Trending Gym Room</h2>
+<div class="mx-5" style="height: 35px;"></div>
 <div class="container-fluid row pt-4">
 
     <div class="col d-flex flex-column justify-content-center align-items-center">
