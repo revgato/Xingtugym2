@@ -4,33 +4,44 @@
     <div class="row">
         <div id="lens"></div>
         <div id="gym-slider mt-4" class="col-lg-5">
-            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-
-                    @foreach($gym_imgs as $index => $gym_img)
-                    <div class="carousel-item <?php echo ($index === 0) ? 'active' : ''; ?>">
-                        <img src="{{$gym_img->image_url}}" class="d-block w-100 carousel-img" alt="Image {{$index}}">
-                    </div>
-                    @endforeach
-
-                </div>
-
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
+        <div class="room-display-img">
+                @if (count($gym_imgs) == 0)
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" class="w-100 carousel-img" alt="Image 1" style="width: 95%;height: 400px;object-fit: cover;">
+                @else
+                    <img src="{{ $gym_imgs[0]['image_url'] }}" class="w-100 carousel-img" alt="Image 1" style="width: 95%;height: 400px;object-fit: cover;">
+                @endif
+            </div>   
 
             <div class="image-box d-flex justify-content-between mt-4">
-                @foreach($gym_imgs as $index => $gym_img)
-                <div class="image-box-item" style="width: 33%;">
-                    <img src="{{$gym_img->image_url}}" alt="Slide" style="border: 5px solid #fff3cd">
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        @php $count = 0; @endphp
+                        @foreach($gym_imgs as $index => $gym_img)
+                            @if($count % 5 == 0)
+                                <div class="carousel-item{{ $count === 0 ? ' active' : '' }}">
+                                    <div class="d-flex">
+                            @endif
+                            <div class="image-box-item" style="width: 20%;">
+                                <img src="{{$gym_img->image_url}}" alt="Slide" style="border: 5px solid #fff3cd; object-fit: cover; width: 100%; height: 100%;">
+                            </div>
+                            @php $count++; @endphp
+                            @if($count % 5 == 0 || $index === count($gym_imgs) - 1)
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
                 </div>
-                @endforeach
+                @if (count($gym_imgs) > 5)
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                @endif
             </div>
         </div>
         <div id="result"></div>
@@ -202,7 +213,7 @@
     #lens, .carousel-item, .image-box-item, #result { border: solid var(--light-grey-2) 1px; }
 </style>
 
-<script type="text/javascript" src="{{asset('js/script.js')}}"></script>
+<script type="text/javascript" src="{{ secure_asset('js/script.js')}}"></script>
 
 <script>
     function redirectUpdatePage() {
