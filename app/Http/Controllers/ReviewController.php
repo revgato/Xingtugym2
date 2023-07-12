@@ -36,10 +36,12 @@ class ReviewController extends Controller
             'room_id' => $gym->id,
             'review' => $request->review,
             'rating' => $request->rating,
-            'poolRating' => $request->poolRating,
+            'pool_rating' => $request->pool_rating,
             'like' => 0,
             'dislike' => 0,
         ]);
+        $gym->rating = $gym->reviews->avg('rating');
+        $gym->save();
         return redirect()->route('gym.review', $gym->id);
     }
 

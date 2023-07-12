@@ -12,11 +12,11 @@ class Review extends Model
     protected $table = 'reviews';
 
     protected $fillable = [
-        'id', 'user_id', 'room_id', 'review', 'rating', 'image', 'like', 'dislike', 'created_at', 'updated_at'
+        'id', 'user_id', 'room_id', 'review', 'rating', 'pool_rating', 'image', 'like', 'dislike', 'created_at', 'updated_at'
     ];
 
     protected $visible = [
-        'id', 'user_id', 'room_id', 'review', 'rating', 'image', 'like', 'dislike', 'created_at', 'updated_at'
+        'id', 'user_id', 'room_id', 'review', 'rating', 'pool_rating', 'image', 'like', 'dislike', 'created_at', 'updated_at'
     ];
     public function user()
     {

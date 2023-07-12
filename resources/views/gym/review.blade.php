@@ -6,8 +6,7 @@
         <div class="form-box-space position-modify">
             <form method="POST" action="{{ route('gym.review.stored',['gym' => $gym->id])}}" enctype="multipart/form-data">
                 @csrf
-                <textarea required class="col-lg-10 margin-custom-rating-textbox" name="review" id="comment-rating" cols="30" rows="10" placeholder="コメントを入力してください">
-                    </textarea>
+                <textarea required class="col-lg-10 margin-custom-rating-textbox" name="review" id="comment-rating" cols="30" rows="10" placeholder="コメントを入力してください"></textarea>
                 <div class="attachment-group">
                     <input id="attachment-input" name="file[]" type="file" class="file" multiple accept="image/*" />
                     <label for="attachment-input" class="attachment-label"> <i id="attachment-link" class="fa-solid fa-paperclip"></i></label>
@@ -27,7 +26,7 @@
         <div class="row-pool-rating-btn d-flex justify-content-around mt-5">
             <div class="gym-rating-box col-lg-4 d-flex">
                 @if($gym->pool == 1)
-                <input type="hidden" name="poolRating" id="pool-rating-input">
+                <input type="hidden" name="pool_rating" id="pool-rating-input">
                 <p class="font-size-custom-text">プール：</p>
                 <div class="star-group-rating-space">
                     <i class="fa-solid fa-star custom-star-rating-review" onclick="selectPoolStar(1)"></i>
@@ -56,9 +55,9 @@
                         <div class="star-group-review-space">
                             <div class="star-group">
                                 @for ($i = 1; $i <= 5; $i++) @if ($review->rating >= $i)
-                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star star-yellow"></i>
                                     @else
-                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star star-yellow"></i>
                                     @endif
                                     @endfor
                             </div>
@@ -74,9 +73,9 @@
                 <div class="gym-review-box col-lg-4 d-flex">
                     <p class="font-size-custom-text">プール：</p>
                     @for ($i = 1; $i <= 5; $i++) @if ($review->pool_rating >= $i)
-                        <i class="fas fa-star custom-star-rating-review"></i>
+                        <i class="star-yellow fas fa-star custom-star-rating-review"></i>
                         @else
-                        <i class="far fa-star custom-star-rating-review"></i>
+                        <i class="star-yellow far fa-star custom-star-rating-review"></i>
                         @endif
                         @endfor
                 </div>
@@ -128,7 +127,7 @@
         padding-left: 50px;
     }
 
-    .fas {
+    .star-yellow {
         color: #cccc04;
     }
 
