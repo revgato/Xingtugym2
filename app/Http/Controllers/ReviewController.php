@@ -26,7 +26,7 @@ class ReviewController extends Controller
             $review->dislikes = Auth::user() ? $review->reviewReacts->where('user_id', Auth::user()->id)->where('react', 0)->count() : 0;
         }
         $reviews = $reviews->sortByDesc('created_at');
-        return view('gym.review', compact('reviews'));
+        return view('gym.review', compact('gym', 'reviews'));
     }
 
     public function stored(Request $request)

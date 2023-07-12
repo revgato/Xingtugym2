@@ -13,19 +13,20 @@
                     <input id="attachment-input" type="file" name="image">
                     <label for="attachment-input" class="attachment-label"> <i id="attachment-link" class="fa-solid fa-paperclip"></i></label>
                 </div>
-
+                <input type="hidden" name="rating" id="rating-input">
                 <div class="star-group-space">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
+                    <i class="input-rating fa-solid fa-star" onclick="selectStar(1)"></i>
+                    <i class="input-rating fa-solid fa-star" onclick="selectStar(2)"></i>
+                    <i class="input-rating fa-solid fa-star" onclick="selectStar(3)"></i>
+                    <i class="input-rating fa-solid fa-star" onclick="selectStar(4)"></i>
+                    <i class="input-rating fa-solid fa-star" onclick="selectStar(5)"></i>
                 </div>
             </form>
         </div>
-
         <div class="row-pool-rating-btn d-flex justify-content-around mt-5">
             <div class="gym-rating-box col-lg-4 d-flex">
+                @if($gym->pool == 1)
+
                 <p class="font-size-custorm-text">プール：</p>
                 <div class="star-group-rating-space">
                     <i class="fa-solid fa-star"></i>
@@ -34,8 +35,8 @@
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
                 </div>
+                @endif
             </div>
-
             <button type="button" class="btn btn-primary col-lg-2 btn-green-color" onclick="">レビュー</button>
 
         </div>
@@ -48,7 +49,7 @@
                 <div class="gym-review-text d-flex justify-content-between">
                     <div class="avatar-group">
                         <div class="avatar-circle">
-                            <img src="$review->userAvatar" alt="Avatar">
+                            <img src="{{ $review->userAvatar }}" alt="Avatar">
                         </div>
                         <p class="font-size-custorm-text mt-5">{{ $review->userName }}</p>
                         <div class="star-group-review-space">
@@ -68,10 +69,10 @@
                     </div>
                 </div>
 
-                @if($review->poolRating != null)
+                @if($review->pool_rating != null)
                 <div class="gym-review-box col-lg-4 d-flex">
                     <p class="font-size-custorm-text">プール：</p>
-                    @for ($i = 1; $i <= 5; $i++) @if ($review->poolRating >= $i)
+                    @for ($i = 1; $i <= 5; $i++) @if ($review->pool_rating >= $i)
                         <i class="fas fa-star"></i>
                         @else
                         <i class="far fa-star"></i>
@@ -92,7 +93,7 @@
                     <img src="{{$image->image_url}}" alt="image" width="300px" height="300px">
                 </div>
                 @endforeach
-                
+
                 <div class="like-dislike-wrapper d-flex justify-content-around">
                     {{ $review->like}}
                     @if($review->liked == 1)
@@ -123,8 +124,8 @@
 </div>
 <style>
     .padding-left-custom {
-            padding-left: 50px;
-        }
+        padding-left: 50px;
+    }
 
     .fas {
         color: #cccc04;
@@ -284,4 +285,20 @@
             $('#attachment-input').click();
         });
     });
-    @endsection
+
+    function selectStar(rating) {
+        // Cập nhật giá trị số sao vào input hidden
+        document.getElementById('rating-input').value = rating;
+
+        // Đổi màu ngôi sao dựa trên số sao được chọn
+        const stars = document.getElementsByClassName('input-rating');
+        for (let i = 0; i < stars.length; i++) {
+            if (i < rating) {
+                stars[i].style.color = '#cccc04'; // Màu sao được chọn
+            } else {
+                stars[i].style.color = 'gray'; // Màu sao không được chọn
+            }
+        }
+    }
+</script>
+@endsection
