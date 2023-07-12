@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Xingtu Gym - ログイン</title>
-    <link rel="stylesheet" href=" {{ asset('css/style.css') }}" />
-    <link rel="stylesheet" href=" {{ asset('css/style_res.css') }}" />
+    <link rel="stylesheet" href=" {{ secure_asset('css/style.css') }}" />
+    <!-- <link rel="stylesheet" href=" {{ secure_asset('css/style_res.css') }}" /> -->
 
     <!-- Toast Notification or use Toast in Laravel: https://viblo.asia/p/su-dung-sweetalert-trong-laravel-Qbq5QEk45D8-->
-    <link rel="stylesheet" href=" {{ asset('css/notifications.css') }}" />
-    <script src=" {{ asset('js/notifications.js') }}"></script>
+    <link rel="stylesheet" href=" {{ secure_asset('css/notifications.css') }}" />
+    <script src=" {{ secure_asset('js/notifications.js') }}"></script>
 
     <!-- Sweet Alert or use SweetAlert in Laravel: https://viblo.asia/p/su-dung-sweetalert-trong-laravel-Qbq5QEk45D8 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
