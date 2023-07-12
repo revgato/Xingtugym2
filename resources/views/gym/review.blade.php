@@ -331,7 +331,6 @@
 
     button.delete-button {
         position: absolute;
-        top: -29px;
         right: 10px;
         color: #f4f0f0;
         background: #e61f1f;
@@ -344,19 +343,37 @@
 </style>
 
 <script>
+    var imageIndex = 0;
+
     function deleteImage(button) {
         // Xóa ảnh khỏi preview
         var imageContainer = button.parentNode;
         imageContainer.remove();
 
-        // Xóa ảnh khỏi files
-        var imagePath = imageContainer.querySelector('img').getAttribute('src');
-        //Gửi yêu cầu đến server để xóa file theo đường dẫn imagePath
+        // Xóa ảnh khỏi files dựa vào chỉ số
+        var imageIndex = imageContainer.querySelector('img').dataset.index;
+        var fileInput = document.getElementById('attachment-input');
+        if (fileInput.files.length > imageIndex) {
+            var newFiles = [];
+            for (var i = 0; i < fileInput.files.length; i++) {
+                if (i != imageIndex) {
+                    newFiles.push(fileInput.files[i]);
+                }
+            }
+            // Tạo một đối tượng 'FileList' giả lập
+            var dataTransfer = new DataTransfer();
+            newFiles.forEach(function(file) {
+                dataTransfer.items.add(file);
+            });
+            // Gán 'FileList' giả lập vào thuộc tính 'files' của phần tử input
+            fileInput.files = dataTransfer.files;
+        }
 
-        //Cập nhật lại danh sách tệp tin (nếu cần)
-        var fileList = document.getElementById('file-list');
-        var fileItem = imageContainer.querySelector('.file-item');
-        fileItem.remove();
+        // Cập nhật lại chỉ số của các ảnh còn lại
+        var images = document.querySelectorAll('.container-image img');
+        for (var i = 0; i < images.length; i++) {
+            images[i].dataset.index = i;
+        }
     }
 
     function createImagePreview(fileInput) {
@@ -374,13 +391,16 @@
                 img.src = e.target.result;
                 img.alt = 'Image Preview';
                 img.classList.add('preview-image');
-
                 var deleteButton = document.createElement('button');
                 deleteButton.classList.add('delete-button');
                 deleteButton.textContent = 'X';
                 deleteButton.addEventListener('click', function() {
                     deleteImage(this);
                 });
+
+                // Thêm chỉ số vào ảnh
+                img.dataset.index = imageIndex;
+                imageIndex++;
 
                 imageContainer.appendChild(img);
                 imageContainer.appendChild(deleteButton);
